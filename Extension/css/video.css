@@ -1,0 +1,47 @@
+.video {
+    position: relative;
+    float: center;
+    padding: 15px;
+}
+
+#VidLink2 {
+    background: #2D528F;
+    color: white;
+}
+
+.VidLinko {
+    position: relative;
+    color: white;
+    cursor: pointer;
+    font: 13px/1 'Source Sans Pro',Arial,Helvetica,sans-serif;
+    border: 1px solid #777;
+    padding: 3px 5px 1px 5px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px 3px;
+    outline: none;
+}
+
+#VidLink {
+    float: left;
+}
+
+#FRButton {
+    position: relative;
+    bottom: 165px;
+    left: 280px;
+    color: #777;
+    cursor: pointer;
+    font: 15px/1 'Source Sans Pro',Arial,Helvetica,sans-serif;
+    border: 1px solid #777;
+    padding: 5px 20px 8px 20px;
+    background: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px 3px;
+    outline: none;
+}
+
+.useractive {
+    box-shadow: 0px -4px 0px 0px #00A2FF inset;
+}

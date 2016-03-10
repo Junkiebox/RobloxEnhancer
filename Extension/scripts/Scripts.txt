@@ -1,0 +1,148 @@
+/*
+	count = 31
+	$(function(){
+		if(localStorage.getItem('timerready') == 'true'){ starttimer() }
+	})
+	
+	function starttimer(clear){ var mytime = setInterval(function(){timer()},1000); if(clear == true){clearInterval(mytime);}}
+	
+	function timer(){
+			count=count-1
+			localStorage.setItem('REtimer',count)
+			$('#ctl00_cphRoblox_Createeditpost1_PostForm_PostButton').val('Post('+localStorage.getItem('REtimer')+')')
+			$('#ctl00_cphRoblox_Createeditpost1_PostForm_PostButton').attr('disabled','disabled')
+		if(count<=1){
+			$('#ctl00_cphRoblox_Createeditpost1_PostForm_PostButton').val('Post ')
+			$('#ctl00_cphRoblox_Createeditpost1_PostForm_PostButton').removeAttr('disabled','disabled')
+			starttimer(true)
+		}
+	}
+		
+	$('#ctl00_cphRoblox_Createeditpost1_PostForm_PostButton').on('click',function(){
+		starttimer()
+		localStorage.setItem('timerready',true)
+	})
+	*/
+
+
+
+
+//Old scripts!
+
+	/*
+	//Link preview
+	$(function(){
+		var ifr = document.createElement('iframe')
+		ifr.height = 275;
+		ifr.width = 550;
+		ifr.id="tail";
+		ifr.style.display = 'none';
+		ifr.setAttribute('sandbox','allow-scripts allow-same-origin')
+		$('body').append(ifr);
+		
+			$(".normalTextSmall a").bind('mouseover',function(e){
+			if($(".normalTextSmall a").attr('href').match(/roblox|imgur/)){
+				$('#tail').attr('src',''+$(this).attr('href'))
+				$('#tail').css({
+					'width':'400px',
+					'height':'400px',
+					'z-index':'50',
+					'position':'absolute',
+					'border':'0',
+					left:  e.pageX-50,
+					top:   e.pageY +20
+				});
+				$('#tail').fadeIn('slow');
+			}
+			}).mouseout(function() {
+				$(document).on('click',function(){
+					$('#tail').fadeOut()
+				})
+			});
+	})
+	
+	var spn = document.createElement('span')
+	spn.className="tooltip";
+	$('body').append(spn);
+	
+	
+	
+	//Old Ban script
+	function checkUsername(user){
+		chrome.storage.local.get('Banned', function(_Banned){
+			for(var a in _Banned){
+				if(user.text().toLowerCase().match(_Banned[a])){
+					return true;
+					}; 
+				}
+			})
+			return false;
+		}
+
+
+	//old embedding link.
+	function vid(play,link2){
+		var a = document.createElement('a');
+		var linkText = document.createTextNode("P");
+		a.id="VidLink2";
+		a.className='btn-control btn-control-medium verified-email-act VidLinko';
+		a.href="javascript:$('."+link2.substr(link2.lastIndexOf('=')+1)+"').fadeToggle()";
+		a.appendChild(linkText);
+		play.prepend(a);	
+	}	
+
+	//anti-stretch
+	_gt['_tlc'].style({set:"max-width: 242.5px; overflow: hidden;"});
+	_gt['_pl'].style({set:"margin-bottom: 20px; max-width: 881.818181818182px; overflow: hidden;"});
+	_gt['_pvt'].style({set:"margin-bottom: 20px; max-width: 881.818181818182px; overflow: hidden;"}) 
+		
+	*/
+
+
+
+			/*
+	//Friend request buttons
+	var btn = document.createElement("button");   
+		btn.id="FRButton"       
+	var t = document.createTextNode("Send FR to everyone on page 1"); 
+		btn.appendChild(t);  
+	$('#FollowersTab')[0] ? $('#FollowersTab')[0].appendChild(btn) : null;
+	
+	
+	$('#FRButton').click(function(e){
+		e.preventDefault();
+		$.get('http://www.roblox.com/user/followers?PageNum=1',function(d){
+		var links = $('.text-link',d);
+		for(var i = 0; i < links.length; i++){
+		var all = $('.text-link',d)[i].href;
+		$.post('http://www.roblox.com/friends/sendfriendrequest',{
+		targetUserID:all.substr(all.lastIndexOf('=')+1),
+		view:'FriendRequests',
+		pageNum:'1',
+		invitationID:'24701689'
+		})}})
+		alert('Sent Friend Request To Everyone!')
+	})
+	
+	var btn = document.createElement("a");   
+	btn.className="btn-small btn-negative";  
+	btn.id="AcceptAll"
+	var t = document.createTextNode("Accept All"); 
+	btn.appendChild(t);   
+	$('.requests-buttons')[0] ? $('.requests-buttons')[0].appendChild(btn) : null;
+	
+	$('#AcceptAll').click(function(e){
+		e.preventDefault();
+		$.get('http://www.roblox.com/friends.aspx#FriendRequestsTab',function(d){
+		var links = $('.text-link',d);
+		for(var i = 0; i < links.length; i++){
+		var all = $('.text-link',d)[i].href;
+		$.post('http://www.roblox.com/friends/acceptfriendrequest',{
+		targetUserID:all.substr(all.lastIndexOf('=')+1),
+		view:'FriendRequests',
+		pageNum:'1',
+		invitationID:'24701689'
+		})}})
+		window.location="http://roblox.com/User.aspx"
+	})
+	*/

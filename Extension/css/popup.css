@@ -1,0 +1,110 @@
+body {
+padding-left:100px;
+max-height: 50px;
+}
+.button, .options {
+	position:relative;
+	right:50px;
+	color: black;
+	font-family: Helvetica;
+	font-size: 12pt;
+	background: white;
+	padding-left: 2em;
+	padding-right: 2em;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	width: 60%;
+	margin-top: 20px;
+	border: 1px solid #787878;
+	outline:none;
+	cursor:default;
+}
+
+.button:hover  {
+	 box-shadow: 0px 1px 5px #777;
+}
+.options:hover  {
+	 box-shadow: 0px 1px 5px #777;
+}
+
+.button2 {
+	position:relative;
+	right:110px;
+	color: black;
+	font-family: Helvetica;
+	font-size: 12pt;
+	background: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	width: 60%;
+	margin-top: 20px;
+	border: 1px solid #787878;
+	outline:none;
+}
+
+.button2:hover {
+	 box-shadow: 0px 1px 5px #777;
+}
+
+.button3 {
+	position:relative;
+	left:20px;
+	top:-35px;
+	color: black;
+	font-family: Helvetica;
+	font-size: 12pt;
+	background: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	width: 60%;
+	margin-top: 5px;
+	border: 1px solid #787878;
+	outline:none;
+}
+
+.button3:hover {
+	 box-shadow: 0px 1px 5px #777;
+}
+
+#sig, #user{
+	position:relative;
+	right:50px;
+	outline:none;
+	padding: 9px 20px 10px 10px;
+	margin-top: 10px;
+	box-shadow: 0 0 2px 0 #777;
+}
+.success, .error2 {
+	position:relative;
+	right:50px;
+	margin-bottom:-15px;
+}
+.success2, .clear, .error, .Ignored, .owner{
+	position:relative;
+	right:50px;
+	top:-20px;
+	margin:0;
+}
+.title{
+	position:relative;
+	right:50px;
+	font-size: 30pt;
+	font-variant: small-caps;
+	color: black;
+	margin-bottom: 10px;
+}
+
+#ignore{
+	position:relative;
+	right:50px;
+	font-size: 20pt;
+	font-variant: small-caps;
+	color: black;
+	margin: 0px;
+	margin-bottom: 10px;
+
+}

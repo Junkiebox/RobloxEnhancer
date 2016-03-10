@@ -1,0 +1,129 @@
+body{
+	background:url('http://www.cssdeck.com/uploads/media/items/0/0Rs78ic.gif');
+	min-width:400px;
+}
+
+ul {
+list-style-type:none;
+margin:0;
+}
+
+.saved {
+	position:relative;
+	color:green;
+	font-size:15px;
+	font-family:comic sans;
+	padding:0;
+}
+
+.title {
+	position:relative;
+	top:20px;
+	color:black;
+	font-size:30px;
+	margin-left:auto;
+	margin-right:auto;
+	font-family:comic sans;
+}
+
+#list {
+	position:relative;
+	color:#808080;
+	text-align:left;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+
+.tooltip {
+  display:none;
+  position:absolute;
+  border:1px solid #333;
+  background-color:#161616;
+  border-radius:5px;
+  padding:10px;
+  color:#fff;
+  z-index:10000;
+  font-size:12px Arial;
+}
+
+#list ul{
+	position:relative;
+	bottom:20px;
+	right:27px;
+}
+
+.ControlIcon {
+	position:relative;
+	right:80px;
+	top:53px;
+	width:50px;
+	height:50px;
+	margin-top: -100px;
+	margin-left: -100px;
+}
+
+#list ul li{
+	width:100%;
+	height:20px;
+	border-radius:1px;
+	font: 15px/18px sans-serif;
+	margin-right: -4px;
+	position: relative;
+	padding: 8px 5px;
+	cursor:default;
+	background: white;
+	
+}
+
+ul li:hover {
+	box-shadow: 4px 0px 0px 0px inset;
+	
+	transition: all 0s ease 0s, all 0.2s ease 0s, all 0s ease-in-out 0s;
+   }
+
+#list ul li input {
+	cursor:pointer;
+	-webkit-transform: scale(1.1);
+}     
+
+input[data-tooltip]:after,
+input[data-tooltip]:before {
+    content: '';
+    display: none;
+    font-size: 12px;
+    position: absolute;
+}
+
+/*
+input[data-tooltip]:after {
+    border-top: .5em solid #222;
+    border-top: .5em solid hsla(0,0%,0%,.9);
+    border-left: .5em solid transparent;
+    border-right: .5em solid transparent;
+    height: 0;
+    left: 40%;
+    width: 0;
+}*/
+
+input[data-tooltip]:before {
+	background: #757575;
+    color: #D8D8D8;
+    content: attr(data-tooltip);
+    font-family: sans-serif;
+    left: 0px;
+    padding: 4px;
+    white-space: nowrap;
+}
+input[data-tooltip]:hover:after,
+input[data-tooltip]:hover:before {
+    display: block;
+}
+input[data-tooltip]:hover:after {
+    top: -.5em;
+}
+input[data-tooltip]:hover:before {
+    top: -3.5em;
+}
+.sign { margin-left:auto;margin-right:auto;color:black; font-size:15px;margin-top:-5px;}
+.GreenBackground{ color:green ;}

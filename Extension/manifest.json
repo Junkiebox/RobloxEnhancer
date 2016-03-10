@@ -1,0 +1,30 @@
+{
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiid4Pk6XcSYQLv+BsixQvQoGE6zpcIfeQV0Y4G9+TJ8ZAfYHiBPJdCDOgs8VkLAB9/12TWmowkvG4bR5lERNN4jvoKF1FyEHLip2oiOLP3Dt+KOkqEWMGQcAHrb3mdsM/BFqueY+Yo9D0GicTYJpkKEW+o8YCTe0pyeOoEBe2IwV+W4vVuuhyMABUAxUyVOVZlgRvdQG+bveiNOFsQKUS1hpDzP+UoEdMh38Sil9Ln6pF/Wo3ctdBqXb+WgI+qVVUteGp4iFPh3mw8KK4MiMMW5tKFRCXYu45pEWRazZ47NwFPm45W2VHDqeKFbplij3cqTT+HV5kRjTTmLW3X5mdQIDAQAB",
+   "manifest_version": 2,
+   "name": "Roblox Enhancer",
+   "short_name": "Roblox Enhancer",
+   "version": "0.69",
+   "web_accessible_resources": [ "css/obc.css" ],
+
+   "background": {
+      "scripts": [ "scripts/jquery.min.js", "scripts/MyPlugins.js", "scripts/background.js", "scripts/myscript.js", "scripts/popup.js"]
+   },
+   "browser_action": {
+      "default_icon": "images/icon.png",
+      "default_popup": "popup.html",
+      "default_title": "Click to update siggy!"
+   },
+   "content_scripts": [ {
+      "css": [ "css/jquery.growl.css", "css/Anti-Stretch.css", "css/colpick.css", "css/video.css" ],
+      "js": [ "scripts/jquery.min.js", "scripts/obc.js", "scripts/applysig.js", "scripts/textchange.js","scripts/jquery.linkify.min.js", "scripts/jquery.growl.js", "scripts/colpick.js", "scripts/MyPlugins.js", "scripts/myscript.js","scripts/Embedding.js","scripts/ItemNotify.js"],
+      "matches": [ "*://*.roblox.com/*"],
+      "run_at": "document_start"
+   } ],
+   "description": "Enhances webpages on Roblox!",
+   "icons": {
+      "128": "images/icon128.png",
+      "48": "images/icon.png"
+   },
+
+      "permissions": [ "background", "notifications","storage", "*://*.roblox.com/*","*://assetgame.roblox.com/*","*://*.rbxcdn.com/*", "contextMenus", "https://archive.is/*" ]
+}
