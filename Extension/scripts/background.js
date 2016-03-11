@@ -48,7 +48,7 @@ $(function(){
 	}
 })
 
-var id = []
+var id = 0
 function CheckNew() {
 	$.get("http://roblox.com/asset/?id=261522650").success(function(r) {
 		r = decodeURIComponent(r);
@@ -104,7 +104,7 @@ $(function poll(){
 			console.error("Cannot reach server")
 		}
 	})
-})()
+})
 
 
 
