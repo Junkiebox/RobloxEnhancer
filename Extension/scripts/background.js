@@ -39,18 +39,23 @@ $(function(){
 		if(localStorage.getItem('alerted','no')){
 			$.get("http://www.roblox.com/mobileapi/userinfo").success(function(r){
 			localStorage.getItem('alerted','yes');window.localStorage.clear();
-			Notify('images/icon.png','Roblox Enhancer','Welcome '+r.UserName+'\n Version: '+getVersion(),'1','Report a problem?')
+			if(r.UserName){
+				Notify('images/icon.png','Roblox Enhancer','Welcome '+r.UserName+'\n Version: '+getVersion(),'1','Report a problem?')
+			}else{
+				Notify('images/icon.png','Roblox Enhancer','Login Required'+'\n Version: '+getVersion(),'1','Report a problem?')
+			}
 		})
-}})
+	}
+})
 
-var id = 0
+var id = []
 function CheckNew() {
 	$.get("http://roblox.com/asset/?id=261522650").success(function(r) {
 		r = decodeURIComponent(r);
 		r = JSON.parse(r.substring(r.indexOf("{"), r.lastIndexOf("}") + 1));
 		var items=r
 		for(var i in items) {
-			chrome.storage.sync.set({'NotifyLink':items[i]['url']})
+			chrome.storage.sync.set({'NotifyLink':items[i]['url'].replace(/\&rbxp\=\d*/g,'')})
 			var recentid = items[i]["id"]
 			if(recentid > id) {
 				id = recentid
@@ -64,12 +69,7 @@ setInterval(function(){
 	CheckNew()
 },30000)
 
-setInterval(function(){
-	$.get('http://api.roblox.com/incoming-items/counts').success(function(num){
-		if(num.unreadMessageCount>30){}else{
-		num.unreadMessageCount>0?Notify('images/HvmE2Fa.png','Message Notifier','You have '+num.unreadMessageCount+' new message/s!','2','Click to view messages!'):null;
-		}
-	})
+
 
 $.get("http://roblox.com/mobileapi/userinfo",function(r){
 	if(!localStorage.getItem('Tixs')){
@@ -79,13 +79,36 @@ $.get("http://roblox.com/mobileapi/userinfo",function(r){
 			var newTix = r.TicketsBalance;
 			var get = localStorage.getItem('Tixs');
 			if(newTix>get || newTix<get){
-				Notify('images/icon.png','Tickets Notifier','Your Tickets have been updated: ' + r.TicketsBalance,'3','Would you like to trade?')
+				Notify('images/icon.png','Tickets Changed','New balance: ' + r.TicketsBalance,'3','Would you like to trade?')
 				localStorage.clear();
 						}
 					})
 				}
 		})
-},100000)
+
+var done = false;
+$(function poll(){
+	$.ajax({
+	  url: "http://api.roblox.com/incoming-items/counts",
+		type:'GET',
+	  context: document.body,
+		success: function(num) {
+			if(!done){
+				if(num.unreadMessageCount>30){}else{num.unreadMessageCount>0?Notify('images/HvmE2Fa.png','Message Notifier','You have '+num.unreadMessageCount+' new message/s!','2','Click to view messages!'):null;}
+				done=true;
+			}
+			if(num.unreadMessageCount==0){done=false;};
+			setTimeout(function(){poll()},30000)
+		},
+		error:function(){
+			console.error("Cannot reach server")
+		}
+	})
+})()
+
+
+
+
 
 function searchimgur(info){ var searchstring = info.selectionText; chrome.tabs.create({url: "http://imgur.com/" + searchstring})}
 chrome.contextMenus.create({title: "Search Imgur", contexts:["selection"], onclick: searchimgur});

@@ -12,3 +12,5 @@ td {
 .last-post > .normalTextSmaller, .thread-link-container{
 	max-width:100px;		
 }
+
+.ad,a[href="/Ads/ReportAd.aspx"],#AdvertisementRight,#AdvertisingLeaderboard,body.other,#HomeContainer div.left-column>div.left-column-boxes.text,.Ads_WideSkyscraper,.ad-annotations,#Skyscraper-Ad{display:none;}
