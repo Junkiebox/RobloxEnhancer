@@ -1,2 +1,2 @@
-#If you're worried about installing my extension, here's all the scripts it's currently using.
+#If you're worried about installing my extension, go through all of my scripts.
 #Version 0.72
