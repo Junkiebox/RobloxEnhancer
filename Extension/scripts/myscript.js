@@ -76,6 +76,8 @@ $(window).load(function(){
 		$(".QuickPost").on("click", function(a) {
 			a.preventDefault();
 			$(".mydiv").fadeToggle();
+			$(".txtbox").focus();
+			$(".txtbox").get(0).setSelectionRange(0, 0);
 		});
 		$(".postme").on("click", function(b) {
 			b.preventDefault();
