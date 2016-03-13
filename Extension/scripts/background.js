@@ -6,6 +6,7 @@ chrome.storage.sync.set({'games':true})
 chrome.storage.sync.set({'forum':true})
 chrome.storage.sync.set({'background':true})
 chrome.storage.sync.set({'protection':true})
+chrome.storage.sync.set({'AutoComplete':true})
 
 setInterval(function(){
 $.get('http://api.roblox.com/incoming-items/counts').success(function(num){
@@ -40,9 +41,9 @@ $(function(){
 			$.get("http://www.roblox.com/mobileapi/userinfo").success(function(r){
 			localStorage.getItem('alerted','yes');window.localStorage.clear();
 			if(r.UserName){
-				Notify('images/icon.png','Roblox Enhancer','Welcome '+r.UserName+'\n Version: '+getVersion(),'1','Report a problem?')
+				Notify('images/icon.png','Roblox Enhancer','Welcome '+r.UserName+'\n Version: '+getVersion(),'1','Read the latest updates/features')
 			}else{
-				Notify('images/icon.png','Roblox Enhancer','Login Required'+'\n Version: '+getVersion(),'1','Report a problem?')
+				Notify('images/icon.png','Roblox Enhancer','Login Required'+'\n Version: '+getVersion(),'1','Read the latest updates/features')
 			}
 		})
 	}

@@ -14,6 +14,7 @@ $(".background").on("click",function(){chrome.storage.sync.set({background:$(".b
 $(".refresh").on("click",function(){chrome.storage.sync.set({refresh:$(".refresh").prop("checked")});});
 $(".protection").on("click",function(){chrome.storage.sync.set({protection:$(".protection").prop("checked")});});
 $(".advert").on("click",function(){chrome.storage.sync.set({advert:$(".advert").prop("checked")});});
+$(".AutoComplete").on("click",function(){chrome.storage.sync.set({AutoComplete:$(".AutoComplete").prop("checked")});});
 $("input").on("click",function(){ $(".sign").fadeOut(800);$('.saved').fadeIn(800);window.setTimeout(function(){$(".saved").fadeOut(800);$(".sign").fadeIn(800);window.clearInterval()},3000)})
 
 //Refresh
@@ -32,6 +33,7 @@ chrome.storage.sync.get("forum",function(v){$(".forum").prop("checked",v.forum);
 chrome.storage.sync.get("background",function(v){$(".background").prop("checked",v.background);if(v.background==true){$(".background").parent().addClass("GreenBackground");}else{$(".background").parent().removeClass("GreenBackground");}});
 chrome.storage.sync.get("protection",function(v){$(".protection").prop("checked",v.protection);if(v.protection==true){$(".protection").parent().addClass("GreenBackground");}else{$(".protection").parent().removeClass("GreenBackground");}});
 chrome.storage.sync.get("advert",function(v){$(".advert").prop("checked",v.advert);if(v.advert==true){$(".advert").parent().addClass("GreenBackground");}else{$(".advert").parent().removeClass("GreenBackground");}});
+chrome.storage.sync.get("AutoComplete",function(v){$(".AutoComplete").prop("checked",v.AutoComplete);if(v.AutoComplete==true){$(".AutoComplete").parent().addClass("GreenBackground");}else{$(".AutoComplete").parent().removeClass("GreenBackground");}});
 chrome.storage.sync.get("refresh",function(v){$(".refresh").prop("checked",v.refresh);if(v.refresh==true){$(".refresh").parent().addClass("GreenBackground");}else{$(".refresh").parent().removeClass("GreenBackground");}});
 chrome.storage.sync.get("ASeconds",function(v){if(v.ASeconds==true){$(".ASeconds").prop("checked",v.ASeconds);}});
 chrome.storage.sync.get("BSeconds",function(v){if(v.BSeconds==true){$(".BSeconds").prop("checked",v.BSeconds);}});

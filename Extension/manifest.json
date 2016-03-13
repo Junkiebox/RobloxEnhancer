@@ -3,7 +3,7 @@
    "manifest_version": 2,
    "name": "Roblox Enhancer",
    "short_name": "Roblox Enhancer",
-   "version": "0.72",
+   "version": "0.75",
    "web_accessible_resources": [ "css/obc.css" ],
 
    "background": {

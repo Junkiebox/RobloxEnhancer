@@ -88,6 +88,9 @@ $(window).load(function(){
 		});
 	}
 
+//auto complete quotes.
+//Do Not Steal!
+chrome.storage.sync.get("AutoComplete",function(t){1==t.AutoComplete&&$(function(){document.onkeypress=function(t){t=t||window.event;var o=t.keyCode||t.which;if(location.href.match(/AddPost.aspx/)){if("34"==o){var e=$("#ctl00_cphRoblox_Createeditpost1_PostForm_PostBody");e.insertAtCaret('"')}}else $(".txtbox")&&"34"==o&&$(".txtbox").insertAtCaret('"')}})});
   //End
 });
 console.log('Roblox Enhancer Loaded')
