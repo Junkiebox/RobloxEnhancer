@@ -1,3 +1,4 @@
+/*
 $(function(){
 	$.get("http://www.roblox.com/mobileapi/userinfo").success(function(r){
 	if(!localStorage.getItem('Tixs')){
@@ -14,3 +15,4 @@ $(function(){
 				}
 		})
 	})
+	*/
