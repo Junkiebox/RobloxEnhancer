@@ -86,6 +86,14 @@ $(window).load(function(){
 			$(".postme").attr("disabled", "disabled");
 			$(".postme").text("Posting...");
 		});
+		window.onbeforeunload = function(){
+		$(".postme").click(function() {
+			return false;
+		});
+			if($('.txtbox').val().length > 1){
+			  return "You haven't posted yet.";
+			};
+		}
 	}
 
 //auto complete quotes.
