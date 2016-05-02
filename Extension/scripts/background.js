@@ -50,6 +50,7 @@ $(function(){
 })
 
 var id = 0
+var times = 0
 function CheckNew() {
 	$.get("http://roblox.com/asset/?id=261522650").success(function(r) {
 		r = decodeURIComponent(r);
@@ -59,8 +60,12 @@ function CheckNew() {
 			chrome.storage.sync.set({'NotifyLink':items[i]['url'].replace(/\&rbxp\=\d*/g,'')})
 			var recentid = items[i]["id"]
 			if(recentid > id) {
-				id = recentid
+			if(times>3){
+				id = recentid;
+				times = 0;
+			}
 				Notify(items[i]['icon'],items[i].header,items[i]['lite'],'4','Click to view item!')
+				times=times+1
 			}
 		}
 	})
@@ -68,7 +73,7 @@ function CheckNew() {
 
 setInterval(function(){
 	CheckNew()
-},30000)
+},60000)
 
 
 
