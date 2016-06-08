@@ -4,9 +4,9 @@ chrome.storage.sync.set({'decal':true})
 chrome.storage.sync.set({'profile':true})
 chrome.storage.sync.set({'games':true})
 chrome.storage.sync.set({'forum':true})
-chrome.storage.sync.set({'background':true})
 chrome.storage.sync.set({'protection':true})
 chrome.storage.sync.set({'AutoComplete':true})
+chrome.storage.sync.set({'Status':true})
 
 setInterval(function(){
 $.get('http://api.roblox.com/incoming-items/counts').success(function(num){
@@ -100,7 +100,7 @@ $(function poll(){
 	  context: document.body,
 		success: function(num) {
 			if(!done){
-				if(num.unreadMessageCount>30){}else{num.unreadMessageCount>0?Notify('images/HvmE2Fa.png','Message Notifier','You have '+num.unreadMessageCount+' new message/s!','2','Click to view messages!'):null;}
+				if(num.unreadMessageCount>30){}else{num.unreadMessageCount>0?Notify('images/HvmE2Fa.png','Message Notifier','You have '+num.unreadMessageCount+' new message(s)!','2','Click to view messages!'):null;}
 				done=true;
 			}
 			if(num.unreadMessageCount==0){done=false;};

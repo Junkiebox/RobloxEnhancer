@@ -52,9 +52,27 @@ $(window).load(function(){
 	_gt['_nts'].linkify2({target:'_blank'});
 	$('#ctl00_cphRoblox_Createeditpost1_PostForm_ReplyBody').removeClass('linkify');
 	$('#ctl00_cphRoblox_Createeditpost1_PostForm_ReplyBody').linkify({target:'_blank'});
-	var status = $('.profile-avatar-status').prop('title');
-	if(!status){$('.header-title').append('<h3 style="font-size:20px;">Status: Offline</h3>')}else{$('.header-title').append('<h3 style="font-size:20px;">Status: '+status+'</h3>')}
-
+	
+	//Online Status
+	chrome.storage.sync.get("Status",function(v){if(v.Status==true){
+		var status2 = $('.profile-avatar-status').prop('title');
+		var status = " "+$('.profile-avatar-status').prop('title');
+		var UserGame = $('.avatar-status').prop('href')
+		$('.profile-avatar-status').css({'display':'none'})
+		if(UserGame){
+			if(!status){}else{$('.avatar-headshot-lg').after('<h2 style="position:relative;font-size:20px;color:green;"><a target="_blank" href='+UserGame+'><span class="icon-game"></span>'+status+'</a></h2>')}
+		}else{
+		   if(status.match(' In Game')){
+		    	$('.avatar-headshot-lg').after('<h2 style="position:relative;font-size:20px;color:green;"><span class="icon-game"></span>'+status+'</h2>')
+		   }else{
+			if(status.match(' In Studio')){}else{if(!status2){$('.avatar-headshot-lg').after('<h2 style="font-size:20px;color:red;">Offline</h2>')}else{$('.avatar-headshot-lg').after('<h2 style="position:relative;font-size:20px;color:green;"><span class="icon-online"></span>'+status+'</h2>')}}
+			}
+			if(status.match(' In Studio')){
+					$('.avatar-headshot-lg').after('<h2 style="position:relative;font-size:20px;color:green;"><span class="icon-studio"></span>'+status+'</h2>')
+			}
+		}
+	}})
+	
 	//validate
 	_gt['_n'].add('maxlength','60');
 	_gt['_v'].remove()

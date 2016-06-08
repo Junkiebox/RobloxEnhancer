@@ -3,7 +3,7 @@ var GetFunc = {
 	getId: function(url){var splited = url.split("/");return splited[splited.length-1]},
 
 	Profile: function(image,decal){
-		 $.ajax({type:"get",cache: false,url: decal+'/Profile',
+		 $.ajax({type:"get",cache: false,url: decal+'/profile',
 			error: function() {
 				image.html('');image.append('<img src="http://t6.rbxcdn.com/70608418c648be7ac4e323e3294bb059" title="This user does not exist!" style="width:100px;height:100px;">')
 			},

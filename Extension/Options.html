@@ -14,42 +14,71 @@
     <br>
     <br>
     <br>
+	<center><p class="saved" style="display:none;">Applied changes.</p></center>
     <div id="list">
         <ul>
             <li>
-                <input data-tooltip="Toggle off/on youtube embedding" type="checkbox" class="youtube">Youtube Embedding</li>
+                <input data-tooltip="Toggle off/on youtube embedding" type="checkbox" id="youtube" class="youtube">
+				<label for="youtube">Youtube Embedding</label>
+				</li>
+		
             <li>
-                <input data-tooltip="Toggle off/on game embedding" type="checkbox" class="games">Game Embedding</li>
+                <input data-tooltip="Toggle off/on game embedding" type="checkbox" id="games" class="games">
+				<label for="games">Game Embedding</label>
+				</li>
             <li>
-                <input data-tooltip="Toggle off/on decal embedding" type="checkbox" class="decal">Decal Embedding</li>
+                <input data-tooltip="Toggle off/on decal embedding" type="checkbox" id="decal" class="decal">
+				<label for="decal">Decal Embedding</label>
+				</li>
             <li>
-                <input data-tooltip="Toggle off/on profile embedding" type="checkbox" class="profile">Profile Embedding</li>
-            <li>
-                <input data-tooltip="Toggle off/on thread link shortener" type="checkbox" class="forum">Thread link shorten</li>
-            <li>
-                <input data-tooltip="Toggle off/on shorten links" type="checkbox" class="archive">Archive link</li>
-            <li>
-                <input data-tooltip="Toggle off/on background color change" type="checkbox" class="background">Background changer</li>
-            <li>
-                <input data-tooltip="Toggle off/on safe link protection" type="checkbox" class="protection">Safe links</li>
+                <input data-tooltip="Toggle off/on profile embedding" type="checkbox" id="profile" class="profile">
+				<label for="profile">Profile Embedding</label>
+				</li>
 			<li>
-                <input data-tooltip="Toggle off/on advert preview" type="checkbox" class="advert">Advert preview</li>
+			<input data-tooltip="Toggle off/on status" type="checkbox" id="Status" class="Status">
+			<label for="Status">Status</label>
+			</li>
             <li>
-                <input data-tooltip="Toggle off/on auto refresh" type="checkbox" class="refresh">Auto Refresh | Seconds:
-                <input type="radio" name="seconds" class="ASeconds">10
-                <input type="radio" name="seconds" class="BSeconds">20
-                <input type="radio" name="seconds" class="CSeconds">30</li>
+                <input data-tooltip="Toggle off/on thread link shortener" type="checkbox" id="forum" class="forum">
+				<label for="forum">Thread link shorten</label>
+				</li>
             <li>
-                <input data-tooltip="Toggle off/on OBC theme" type="checkbox" class="obc">OBC theme</li>
+                <input data-tooltip="Toggle off/on shorten links" type="checkbox" id="archive" class="archive">
+				<label for="archive">Archive link</label>
+				</li>
+            <li>
+                <input data-tooltip="Toggle off/on background color change" type="checkbox" id="background" class="background">
+				<label for="background">Background changer</label>
+				</li>
+            <li>
+                <input data-tooltip="Toggle off/on safe link protection" type="checkbox" id="protection" class="protection">
+				<label for="protection">Safe links</label>
+				</li>
+			<li>
+                <input data-tooltip="Toggle off/on advert preview" type="checkbox" id="advert" class="advert">
+				<label for="advert">Advert preview</label>
+				</li>
+            <li>
+                <input data-tooltip="Toggle off/on auto refresh" type="checkbox" id="refresh" class="refresh">
+				<label for="refresh">Auto Refresh | Seconds:</label>
+                <input type="radio" id="first" name="seconds" class="ASeconds">
+				<label for="first">10</label>
+                <input type="radio" id="second" name="seconds" class="BSeconds">
+				<label for="second">20</label>
+                <input type="radio" id="third" name="seconds" class="CSeconds">
+				<label for="third">30</label>
+				</li>
+            <li>
+                <input data-tooltip="Toggle off/on OBC theme" type="checkbox" id="obc" class="obc">
+				<label for="obc">OBC theme</label>
+				</li>
                 <li>
-                  <input data-tooltip="Toggle off/on auto closing quotes." type="checkbox" class="AutoComplete">Auto Closing Quotes
+                  <input data-tooltip="Toggle off/on auto closing quotes." type="checkbox" id="AutoComplete" class="AutoComplete">
+				  <label for="AutoComplete">Auto Closing Quotes</label>
                 </li>
               </li>
         </ul>
     </div>
-    <center>
-		<center><p class="saved" style="display:none;">Applied changes.</p></center>
-    </center>
 </body>
 
 </html>
