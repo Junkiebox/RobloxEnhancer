@@ -1,5 +1,5 @@
 $(function(){
-$(document).ready(function(){$(".rate").on("click",function(){chrome.tabs.create({url:$(this).attr("href")});return false;});});
+//$(document).ready(function(){$(".rate").on("click",function(){chrome.tabs.create({url:$(this).attr("href")});return false;});});
 $("input[type='checkbox']").change(function(){if($(this).is(":checked")){$(this).parent().addClass("GreenBackground");}else{$(this).parent().removeClass("GreenBackground");}});
 
 //Set item on click
@@ -16,7 +16,7 @@ $(".protection").on("click",function(){chrome.storage.sync.set({protection:$(".p
 $(".advert").on("click",function(){chrome.storage.sync.set({advert:$(".advert").prop("checked")});});
 $(".AutoComplete").on("click",function(){chrome.storage.sync.set({AutoComplete:$(".AutoComplete").prop("checked")});});
 $(".Status").on("click",function(){chrome.storage.sync.set({Status:$(".Status").prop("checked")});});
-$("input").on("click",function(){ $(".sign").fadeOut(800);$('.saved').fadeIn(800);window.setTimeout(function(){$(".saved").fadeOut(800);$(".sign").fadeIn(800);window.clearInterval()},3000)})
+$("input").click(function(){$('.saved').filter(':not(:animated)').animate({width:'toggle'},800);window.setTimeout(function(){$(".saved").fadeOut(800);},3000)})
 
 //Refresh
 $('.ASeconds').on('click',function(){chrome.storage.sync.set({'ASeconds':$('.ASeconds').prop('checked')});chrome.storage.sync.set({'time':'10000'});chrome.storage.sync.set({'BSeconds':'false'});chrome.storage.sync.set({'CSeconds':'false'});})
@@ -42,6 +42,7 @@ chrome.storage.sync.get("BSeconds",function(v){if(v.BSeconds==true){$(".BSeconds
 chrome.storage.sync.get("CSeconds",function(v){if(v.CSeconds==true){$(".CSeconds").prop("checked",v.CSeconds);}});
 })
 
+/*
 $(function(){
 
 var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
@@ -72,3 +73,4 @@ $(window).resize(function() {
 $(window).resize();
  
 });
+*/

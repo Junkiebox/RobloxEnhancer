@@ -6,9 +6,11 @@
 chrome.storage.sync.get('background',function(v){
 	if(v.background==true){
 	chrome.storage.sync.get('color',function(col){
-		(function(){$('body').css('background',''+col.color);}(document))
-		$('.container-fluid').css('background',''+col.color)
+	$(function(){
+	    $('body').css('background',col.color)
+		$('.container-fluid').css('background',col.color)
 			})
-		}
-	})
+		})
+	}
+})
 }(window))

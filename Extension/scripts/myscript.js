@@ -1,4 +1,4 @@
-$(window).load(function(){
+$(function(){
 	var _gt = {
 		_nts: $('.normalTextSmall'),
 		_n:$('#ctl00_cphRoblox_Createeditpost1_PostForm_NewPostSubject'),
@@ -19,8 +19,8 @@ $(window).load(function(){
 	$('#ctl00_cphRoblox_ThreadView1_ctl00_Search').add('placeholder','Change background color!')
 	$('#ctl00_cphRoblox_ThreadView1_ctl00_Search').colpick({
 		onChange:function(hsb,hex,rgb,el,bySetColor) {
-		$('body').css('background','#'+hex)
 		$('.container-fluid').css('background','#'+hex)
+		$('body').css('background','#'+hex)
 		chrome.storage.sync.set({'color':'#'+hex})
 		} })
 
@@ -59,20 +59,22 @@ $(window).load(function(){
 		var status = " "+$('.profile-avatar-status').prop('title');
 		var UserGame = $('.avatar-status').prop('href')
 		$('.profile-avatar-status').css({'display':'none'})
+		//$('.avatar-headshot-lg').after('<h2 style="font-size:20px;color:red;">Offline</h2>')
 		if(UserGame){
-			if(!status){}else{$('.avatar-headshot-lg').after('<h2 style="position:relative;font-size:20px;color:green;"><a target="_blank" href='+UserGame+'><span class="icon-game"></span>'+status+'</a></h2>')}
+			if(!status){}else{$('.profile-about').before('<h2 class="section-content" style="margin-top:10px;z-index:1000;position:relative;font-size:20px;color:green;"><a target="_blank" href='+UserGame+'><span class="icon-game"></span>'+status+'</a></h2>')}
 		}else{
 		   if(status.match(' In Game')){
-		    	$('.avatar-headshot-lg').after('<h2 style="position:relative;font-size:20px;color:green;"><span class="icon-game"></span>'+status+'</h2>')
+		    	$('.profile-about').before('<h2 class="section-content" style="margin-top:10px;position:relative;font-size:20px;color:green;"><span class="icon-game"></span>'+status+'</h2>')
 		   }else{
-			if(status.match(' In Studio')){}else{if(!status2){$('.avatar-headshot-lg').after('<h2 style="font-size:20px;color:red;">Offline</h2>')}else{$('.avatar-headshot-lg').after('<h2 style="position:relative;font-size:20px;color:green;"><span class="icon-online"></span>'+status+'</h2>')}}
+			if(status.match(' In Studio')){}else{if(!status2){}else{$('.profile-about').before('<h2 class="section-content" style="margin-top:10px;position:relative;font-size:20px;color:green;"><span class="icon-online"></span>'+status+'</h2>')}}
 			}
 			if(status.match(' In Studio')){
-					$('.avatar-headshot-lg').after('<h2 style="position:relative;font-size:20px;color:green;"><span class="icon-studio"></span>'+status+'</h2>')
+					$('.profile-about').before('<h2 class="section-content" style="margin-top:10px;position:relative;font-size:20px;color:green;"><span class="icon-studio"></span>'+status+'</h2>')
 			}
 		}
-	}})
-	
+	}
+})
+
 	//validate
 	_gt['_n'].add('maxlength','60');
 	_gt['_v'].remove()
