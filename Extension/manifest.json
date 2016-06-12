@@ -3,11 +3,11 @@
    "manifest_version": 2,
    "name": "Roblox Enhancer",
    "short_name": "Roblox Enhancer",
-   "version": "0.79",
+   "version": "0.80",
    "web_accessible_resources": [ "css/obc.css" ],
 
    "background": {
-      "scripts": [ "scripts/jquery.min.js", "scripts/MyPlugins.js", "scripts/background.js", "scripts/myscript.js", "scripts/popup.js"]
+      "scripts": [ "scripts/jquery-ui.min.js","scripts/jquery.min.js", "scripts/MyPlugins.js", "scripts/background.js", "scripts/myscript.js", "scripts/popup.js"]
    },
    "browser_action": {
       "default_icon": "images/icon.png",
@@ -16,7 +16,7 @@
    },
    "content_scripts": [ {
       "css": [ "css/jquery.growl.css", "css/Anti-Stretch.css", "css/colpick.css", "css/video.css" ],
-      "js": [ "scripts/jquery.min.js", "scripts/obc.js", "scripts/applysig.js", "scripts/textchange.js","scripts/jquery.linkify.min.js", "scripts/jquery.growl.js", "scripts/colpick.js", "scripts/MyPlugins.js", "scripts/myscript.js","scripts/Embedding.js"],
+      "js": [ "scripts/jquery-ui.min.js","scripts/jquery.min.js", "scripts/obc.js", "scripts/applysig.js", "scripts/textchange.js","scripts/jquery.linkify.min.js", "scripts/jquery.growl.js", "scripts/colpick.js", "scripts/MyPlugins.js", "scripts/myscript.js","scripts/Embedding.js"],
       "matches": [ "*://*.roblox.com/*"],
       "run_at": "document_start"
    } ],

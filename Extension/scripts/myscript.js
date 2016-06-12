@@ -12,7 +12,7 @@ $(function(){
 };
 
 	setInterval(function(){$.get("http://api.roblox.com/incoming-items/counts").success(function(num){if(num.unreadMessageCount>0){$("#nav-message>.rbx-highlight").text(""+num.unreadMessageCount);}else{$("#nav-message>.rbx-highlight").text("");}});},15000);
-
+	
 	//Background color
 	chrome.storage.sync.get('background',function(v){
 	if(v.background==true){
@@ -30,6 +30,59 @@ $(function(){
 	chrome.storage.sync.remove('color')
 	window.location.reload()
 	});}})
+	
+	//Track Thread
+	chrome.storage.sync.get("TrackThread",function(v){if(v.TrackThread==true){
+		function mark(){
+			if($('#ctl00_cphRoblox_PostView1_ctl00_TrackThread').is(':checked')){
+				$('#RobloxEnhancer').check();
+				$('#RobloxEnhancerText').text('Untrack thread')
+			}else{
+				$('#RobloxEnhancer').uncheck();
+			}
+		}
+
+		$('#ctl00_cphRoblox_PostView1_ctl00_TrackThread').after('<input id="RobloxEnhancer" type="checkbox">')
+		$('[for="ctl00_cphRoblox_PostView1_ctl00_TrackThread"]').replaceWith('<label id="RobloxEnhancerText" for="RobloxEnhancer">Track Thread</label>')
+		$('#ctl00_cphRoblox_PostView1_ctl00_TrackThread').css({'display':'none'})
+		mark()
+		
+		function TrackThread(Track,check){
+			error = setTimeout(function(){
+				mark();
+				$('#RobloxEnhancerText').text('Error occured. Please try again!');
+			},8000);
+			
+			var loc=window.location;
+			$.get(loc).success(function(r){
+				$.post(loc,{
+					__VIEWSTATE:r.match(/[name="__VIEWSTATE"] value="(.+?)"/)[1],
+					__EVENTVALIDATION:r.match(/[name="__EVENTVALIDATION"] id="__EVENTVALIDATION" value="(.+?)"/)[1],
+					ctl00$cphRoblox$PostView1$ctl00$TrackThread:Track
+				}).done(function(){
+					if(check){
+						$('#RobloxEnhancerText').text('Untrack thread')
+					}else{
+						$('#RobloxEnhancerText').text('Track thread')
+						}
+					clearTimeout(error);
+					}).fail(function(){
+						$('#RobloxEnhancerText').text('Error occured. Please try again!')
+					})
+			})
+		}
+		
+		$('#RobloxEnhancer').on('click',function(){
+			$('#RobloxEnhancerText').text('Loading...');
+			if($('#RobloxEnhancer').is(':checked')){
+				TrackThread('on',true)
+				$('#RobloxEnhancerText').text('Tracking...');
+			}else{
+				TrackThread('',false)
+				$('#RobloxEnhancerText').text('Untracking...');
+			}
+		})
+	}})
 
 	//Auto Refresh
 	chrome.storage.sync.get('refresh',function(v){ if(v.refresh==true){
@@ -89,10 +142,10 @@ $(function(){
 
 	//cancel button/Posting
 	$("#ctl00_cphRoblox_Createeditpost1_PostForm_Cancel").click(function(e){e.preventDefault();history.back()});_gt['_po'].on("click",function(){_gt['_po'].val("Posting...")});
-
+	
 	if (window.location.href.match(/ShowPost\.aspx\?PostID/)) {
 		$(".btn-control").last().parent().append('<button style="outline:none;" class="QuickPost btn-control btn-control-medium verified-email-act">Quick Post</button>');
-		$(".QuickPost").parent().append('<div style="display:none;margin-top:10px;" class="mydiv"><textarea style="width:750px;height:150px;" class="txtbox" rows="4" cols="50"></textarea><br><p style="display:none;color:red;" class="error">Error Occurred!</p><button style="width:750px;outline:none;" class="postme btn-control btn-control-medium verified-email-act">Post</button></div>');
+		$(".QuickPost").parent().append('<div style="display:none;margin-top:10px;" class="mydiv"><textarea style="width:750px;height:150px;" class="txtbox form-control input-field rbx-comment-input blur" rows="4" cols="50"></textarea><br><p style="display:none;color:red;" class="error">Error Occurred!</p><button style="width:780px;outline:none;margin-top:-13px;" class="postme btn-secondary-md">Post</button></div>');
 		$(".QuickPost").on("click", function(a) {
 			a.preventDefault();
 			$(".mydiv").fadeToggle();

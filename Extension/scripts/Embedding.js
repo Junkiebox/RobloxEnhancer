@@ -1,52 +1,102 @@
 //Functions
 var GetFunc = {
-	getId: function(url){var splited = url.split("/");return splited[splited.length-1]},
+    getId: function(url) {
+        var splited = url.split("/");
+        return splited[splited.length - 1]
+    },
 
-	Profile: function(image,decal){
-		 $.ajax({type:"get",cache: false,url: decal+'/profile',
-			error: function() {
-				image.html('');image.append('<img src="http://t6.rbxcdn.com/70608418c648be7ac4e323e3294bb059" title="This user does not exist!" style="width:100px;height:100px;">')
-			},
-			success: function(data){
-			var link = $('.thumbnail-span>img',data).prop('src'), blurb = $($('.profile-about-content',data).get(0)).text().replace(/Read {{layoutContent.linkName}}/g,'').replace(/^\s+/g,'').replace(/\s+$/g,'')
-			if(link){image.html('');image.append('<img class="embeddeduser" src="'+link+'" style="width:100px;height:100px;" title="'+blurb+'" ">')}
-			if($('.profile-avatar-status',data)){$('.embeddeduser').addClass('useractive')}else{$('.embeddeduser').removeClass('useractive')}
-			}
-		})
-	},
-	OldProfile: function(image,decal){
-		$.get(decal,function(data){
-			//var username = $('#ctl00_cphRoblox_rbxUserPane_lUserRobloxURL',data).text().replace(/\'s profile/i,'');
-			var link = $('.thumbnail-span>img',data).prop('src'), blurb = $($('.profile-about-content',data).get(0)).text().replace(/Read {{layoutContent.linkName}}/g,'').replace(/^\s+/g,'').replace(/\s+$/g,'')
-			if(link){image.html('');image.append('<img src="'+link+'" style="width:100px;height:100px;" title="'+blurb+'" ">')}
-		}).fail(function() { image.html('');image.append('<img src="http://t6.rbxcdn.com/70608418c648be7ac4e323e3294bb059" title="This user does not exist!" style="width:100px;height:100px;">') });
-	},
-	Game: function(image,decal){
-	 $.ajax({type:"get",cache: false,url: '/games/'+decal+'/--',
-		success: function(data){
-		var link = $('.CarouselThumb',data).prop('src'), title = $('.game-name',data).attr('title')
-		if(link){image.text('\n'+title);image.css({'float':'right','align':'center'});GetFunc.Load(image,link,title)}
-		}})
-	},
-	Load: function(image,link2,name){
-		image.append('<li><img src="'+link2+'" title="'+name+'" style="width:100px;height:100px;"></li>')
-	},
-	Decal: function(image,decal){
-	  $.ajax({url: '/item.aspx?&id='+decal, success: function(data){
-		var link2 = $('.thumbnail-span',data).find('img').prop('src'), name = $($('.notranslate',data).data('se','item-name').get(0)).text().replace(/^\s+/g,'').replace(/\s+$/g,'');
-		if(!link2){ image.text($($('.notranslate',data).data('se','item-name').get(0)).text().replace(/\s+$/,'').replace(/^\s+/,'')) }else{ image.text('');GetFunc.Load(image,link2,name)}
-		}});
-		},
-	Forum: function(image,decal){
-	$.ajax({url:decal,type:'get', success: function(data){
-		var title = $('#ctl00_cphRoblox_PostView1_ctl00_PostTitle',data).text()
-		if(title){ image.html(title) }else{	image.html($('#ctl00_cphRoblox_Message1_ctl00_MessageBody',data).text()) }
-			},
-		error: function(){
-			image.html('[ Content Deleted ]')
-		}
-		})
-	}
+    Profile: function(image, decal) {
+        $.ajax({
+            type: "get",
+            cache: false,
+            url: decal + '/profile',
+            error: function() {
+                image.html('');
+                image.append('<img src="http://t6.rbxcdn.com/70608418c648be7ac4e323e3294bb059" title="This user does not exist!" style="width:100px;height:100px;">')
+            },
+            success: function(data) {
+                var link = $('.thumbnail-span>img', data).prop('src'),
+                    blurb = $($('.profile-about-content', data).get(0)).text().replace(/Read {{layoutContent.linkName}}/g, '').replace(/^\s+/g, '').replace(/\s+$/g, '')
+                if (link) {
+                    image.html('');
+                    image.append('<img class="embeddeduser" src="' + link + '" style="width:100px;height:100px;" title="' + blurb + '" ">')
+                }
+                if ($('.profile-avatar-status', data)) {
+                    $('.embeddeduser').addClass('useractive')
+                } else {
+                    $('.embeddeduser').removeClass('useractive')
+                }
+            }
+        })
+    },
+    OldProfile: function(image, decal) {
+        $.get(decal, function(data) {
+            //var username = $('#ctl00_cphRoblox_rbxUserPane_lUserRobloxURL',data).text().replace(/\'s profile/i,'');
+            var link = $('.thumbnail-span>img', data).prop('src'),
+                blurb = $($('.profile-about-content', data).get(0)).text().replace(/Read {{layoutContent.linkName}}/g, '').replace(/^\s+/g, '').replace(/\s+$/g, '')
+            if (link) {
+                image.html('');
+                image.append('<img src="' + link + '" style="width:100px;height:100px;" title="' + blurb + '" ">')
+            }
+        }).fail(function() {
+            image.html('');
+            image.append('<img src="http://t6.rbxcdn.com/70608418c648be7ac4e323e3294bb059" title="This user does not exist!" style="width:100px;height:100px;">')
+        });
+    },
+    Game: function(image, decal) {
+        $.ajax({
+            type: "get",
+            cache: false,
+            url: '/games/' + decal + '/--',
+            success: function(data) {
+                var link = $('.CarouselThumb', data).prop('src'),
+                    title = $('.game-name', data).attr('title')
+                if (link) {
+                    image.text('\n' + title);
+                    image.css({
+                        'float': 'right',
+                        'align': 'center'
+                    });
+                    GetFunc.Load(image, link, title)
+                }
+            }
+        })
+    },
+    Load: function(image, link2, name) {
+        image.append('<li><img src="' + link2 + '" title="' + name + '" style="width:100px;height:100px;"></li>')
+    },
+    Decal: function(image, decal) {
+        $.ajax({
+            url: '/item.aspx?&id=' + decal,
+            success: function(data) {
+                var link2 = $('.thumbnail-span', data).find('img').prop('src'),
+                    name = $($('.notranslate', data).data('se', 'item-name').get(0)).text().replace(/^\s+/g, '').replace(/\s+$/g, '');
+                if (!link2) {
+                    image.text($($('.notranslate', data).data('se', 'item-name').get(0)).text().replace(/\s+$/, '').replace(/^\s+/, ''))
+                } else {
+                    image.text('');
+                    GetFunc.Load(image, link2, name)
+                }
+            }
+        });
+    },
+    Forum: function(image, decal) {
+        $.ajax({
+            url: decal,
+            type: 'get',
+            success: function(data) {
+                var title = $('#ctl00_cphRoblox_PostView1_ctl00_PostTitle', data).text()
+                if (title) {
+                    image.html(title)
+                } else {
+                    image.html($('#ctl00_cphRoblox_Message1_ctl00_MessageBody', data).text())
+                }
+            },
+            error: function() {
+                image.html('[ Content Deleted ]')
+            }
+        })
+    }
 }
 
 //Script
