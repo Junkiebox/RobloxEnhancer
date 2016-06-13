@@ -3,7 +3,7 @@
    "manifest_version": 2,
    "name": "Roblox Enhancer",
    "short_name": "Roblox Enhancer",
-   "version": "0.80",
+   "version": "0.81",
    "web_accessible_resources": [ "css/obc.css" ],
 
    "background": {
@@ -26,5 +26,5 @@
       "48": "images/icon.png"
    },
 
-      "permissions": [ "background", "notifications","storage", "*://*.roblox.com/*","*://assetgame.roblox.com/*","*://*.rbxcdn.com/*", "contextMenus", "https://archive.is/*" ]
+      "permissions": [ "background", "notifications","storage", "*://*.roblox.com/*","*://assetgame.roblox.com/*","*://*.rbxcdn.com/*","*://github.com/*", "contextMenus", "https://archive.is/*" ]
 }

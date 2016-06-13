@@ -1,16 +1,16 @@
 //default settings
-chrome.storage.sync.set({'youtube':true})
-chrome.storage.sync.set({'decal':true})
-chrome.storage.sync.set({'profile':true})
-chrome.storage.sync.set({'games':true})
-chrome.storage.sync.set({'forum':true})
-chrome.storage.sync.set({'protection':true})
-chrome.storage.sync.set({'AutoComplete':true})
-chrome.storage.sync.set({'Status':true})
-chrome.storage.sync.set({'TrackThread':true})
+Storage.Set({'youtube':true})
+Storage.Set({'decal':true})
+Storage.Set({'profile':true})
+Storage.Set({'games':true})
+Storage.Set({'forum':true})
+Storage.Set({'protection':true})
+Storage.Set({'AutoComplete':true})
+Storage.Set({'Status':true})
+Storage.Set({'TrackThread':true})
 
 setInterval(function() {
-    $.get('http://api.roblox.com/incoming-items/counts').success(function(num) {
+    $.get('https://api.roblox.com/incoming-items/counts').success(function(num) {
         if (num.unreadMessageCount > 50) {
             chrome.browserAction.setBadgeText({
                 text: '50+'
@@ -42,49 +42,65 @@ function speak(text) {
 	window.speechSynthesis.speak(msg);
 }
 
+
+var recent="";
+setInterval(function(){
+	$.get('https://github.com/Junkiebox/RobloxEnhancer/wiki/Updates-And-Features').success(function(r){
+		if(recent!=$('.gh-header-meta > relative-time',r).text()){
+			recent=$('.gh-header-meta > relative-time',r).text()
+			Notify('images/github.png','New updates!','Wiki was updated on '+$('.gh-header-meta > relative-time',r).text(), '5' ,'Click here for more info!')
+		}
+	})
+},60000)
+
 $(function() {
     localStorage.setItem('alerted', 'no')
     if (localStorage.getItem('alerted', 'no')) {
-        $.get("http://www.roblox.com/mobileapi/userinfo").success(function(r) {
+		$.get('https://github.com/Junkiebox/RobloxEnhancer/wiki/Updates-And-Features').success(function(update){
+        $.get('http://www.roblox.com/mobileapi/userinfo').success(function(r) {
             localStorage.getItem('alerted', 'yes');
             window.localStorage.clear();
             if (r.UserName) {
-                Notify('images/icon.png', 'Roblox Enhancer', 'Welcome ' + r.UserName + '\n Version: ' + getVersion(), '1', 'Read the latest updates/features')
+                Notify('images/icon.png', 'Roblox Enhancer', 'Welcome ' + r.UserName + '\n Version: ' + getVersion(), '1', 'Read the latest updates/features | Last Updated: '+$('.gh-header-meta > relative-time',update).text())
             } else {
-                Notify('images/icon.png', 'Roblox Enhancer', 'Login Required' + '\n Version: ' + getVersion(), '1', 'Read the latest updates/features')
-            }
-        })
+                Notify('images/icon.png', 'Roblox Enhancer', 'Login Required' + '\n Version: ' + getVersion(), '1', 'Read the latest updates/features | Last Updated: '+$('.gh-header-meta > relative-time',update).text())
+				}
+			})
+		})
     }
 })
 
-var id = 0
-var times = 0
-
-function CheckNew() {
-    $.get("http://roblox.com/asset/?id=261522650").success(function(r) {
-        r = decodeURIComponent(r);
-        r = JSON.parse(r.substring(r.indexOf("{"), r.lastIndexOf("}") + 1));
-        var items = r
-        for (var i in items) {
-            chrome.storage.sync.set({
-                'NotifyLink': items[i]['url'].replace(/\&rbxp\=\d*/g, '')
-            })
-            var recentid = items[i]["id"]
-            if (recentid > id) {
-                if (times > 3) {
-                    id = recentid;
-                    times = 0;
-                }
-                Notify(items[i]['icon'], items[i].header, items[i]['lite'], '4', 'Click to view item!')
-                times = times + 1
-            }
-        }
-    })
+var Showed = [];
+function Exists(item,icon,header,content,url){
+	 var exists = ($.inArray(item, Showed) != -1);
+	if(!exists){
+		Showed.push(item)
+		Notify(icon,header,content, '4' , 'Click to view item!',{'go':Storage.Set({'link':url})})
+		(chrome.notifications)?chrome.notifications.onButtonClicked.addListener():''
+		
+	}
 }
+		
 
-setInterval(function() {
-    CheckNew()
-}, 60000)
+function GetNew(){
+	 $.get("http://assetgame.roblox.com/asset/?id=311113132").success(function(r) {
+		 var a = r.replace(/&gt;/g,">").replace(/&quot;/g,"\"").replace(/&#039;/g,"'").replace(/&amp;/g,"&")
+		 var b = $('[name="Value"]',a).html()
+		 var c = JSON.parse(b.substring(b.indexOf("["), b.lastIndexOf("]") + 1));
+		 for(var n in c){
+				Exists(c[n].id,c[n].icon,c[n].header,c[n].content,c[n].url.replace(/\&amp;rbxp\=\d*/g, '') )
+			}
+	 })
+}
+GetNew();
+setInterval(function(){
+	GetNew();
+},5000)
+
+
+
+
+
 
 
 $.get("http://roblox.com/mobileapi/userinfo", function(r) {
@@ -105,7 +121,7 @@ $.get("http://roblox.com/mobileapi/userinfo", function(r) {
 var done = false;
 $(function poll() {
     $.ajax({
-        url: "http://api.roblox.com/incoming-items/counts",
+        url: "https://api.roblox.com/incoming-items/counts",
         type: 'GET',
         context: document.body,
         success: function(num) {

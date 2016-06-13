@@ -8,7 +8,8 @@ var GetFunc = {
     Profile: function(image, decal) {
         $.ajax({
             type: "get",
-            cache: false,
+            cache: 'false',
+			async:'false',
             url: decal + '/profile',
             error: function() {
                 image.html('');
@@ -46,7 +47,8 @@ var GetFunc = {
     Game: function(image, decal) {
         $.ajax({
             type: "get",
-            cache: false,
+            cache: 'false',
+			async:'false',
             url: '/games/' + decal + '/--',
             success: function(data) {
                 var link = $('.CarouselThumb', data).prop('src'),
@@ -68,6 +70,8 @@ var GetFunc = {
     Decal: function(image, decal) {
         $.ajax({
             url: '/item.aspx?&id=' + decal,
+			cache:'false',
+			async:'false',
             success: function(data) {
                 var link2 = $('.thumbnail-span', data).find('img').prop('src'),
                     name = $($('.notranslate', data).data('se', 'item-name').get(0)).text().replace(/^\s+/g, '').replace(/\s+$/g, '');
@@ -84,6 +88,8 @@ var GetFunc = {
         $.ajax({
             url: decal,
             type: 'get',
+			cache:'false',
+			async:'false',
             success: function(data) {
                 var title = $('#ctl00_cphRoblox_PostView1_ctl00_PostTitle', data).text()
                 if (title) {
@@ -104,20 +110,20 @@ $(window).bind("load",function(){
 $.ajaxSetup({ cache: false });
 $('#ctl00_cphRoblox_Createeditpost1_PostForm_PostBody').focus();$('#ctl00_cphRoblox_Createeditpost1_PostForm_NewPostSubject').focus();
 //Youtube Embed
-chrome.storage.sync.get("youtube",function(e){function t(e,t){e.on("click",function(e){e.preventDefault(),$("."+t).fadeToggle()}),e.dblclick(function(e){e.preventDefault(),window.open("https://youtu.be/"+t)})}1==e.youtube&&$(".normalTextSmall a").each(function(){function e(e,t,a,o){e.append('<iframe allowfullscreen="1" webkitallowfullscreen="1" src="'+t+a+o+'" class="'+a+' video" frameBorder="0" style="display:none;height:275px;width:550px;"></iframe>')}var a=$(this).text().match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([\w\-]{10,12})(?:&feature=related)?(?:[\w\-]{0})?/g);if(a){var o=GetFunc.getId(a[0]),c=o.replace(/watch\?v=/g,""),n="https://www.youtube.com/embed/";time="?version=3&start="+$(this).text().match(/(\?t=(\w+))/g),t($(this),c),e($(this),n,c,time.replace(/\?t=/g,""))}})});
+Storage.Get("youtube",function(e){function t(e,t){e.on("click",function(e){e.preventDefault(),$("."+t).fadeToggle()}),e.dblclick(function(e){e.preventDefault(),window.open("https://youtu.be/"+t)})}1==e.youtube&&$(".normalTextSmall a").each(function(){function e(e,t,a,o){e.append('<iframe allowfullscreen="1" webkitallowfullscreen="1" src="'+t+a+o+'" class="'+a+' video" frameBorder="0" style="display:none;height:275px;width:550px;"></iframe>')}var a=$(this).text().match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([\w\-]{10,12})(?:&feature=related)?(?:[\w\-]{0})?/g);if(a){var o=GetFunc.getId(a[0]),c=o.replace(/watch\?v=/g,""),n="https://www.youtube.com/embed/";time="?version=3&start="+$(this).text().match(/(\?t=(\w+))/g),t($(this),c),e($(this),n,c,time.replace(/\?t=/g,""))}})});
 //Archive link
-chrome.storage.sync.get("archive",function(v){if(v.archive==true){$("#forum-nav").append('<a id="EnhancerV2Archive"class="menuTextLink"> Archive this page?</a>');var location=window.location.href;$("#EnhancerV2Archive").on("click",function(e){e.preventDefault();if(confirm("Archive this page?")){window.open("https://archive.is/?run=1&url="+encodeURIComponent(location));}});}});
+Storage.Get("archive",function(v){if(v.archive==true){$("#forum-nav").append('<a id="EnhancerV2Archive"class="menuTextLink"> Archive this page?</a>');var location=window.location.href;$("#EnhancerV2Archive").on("click",function(e){e.preventDefault();if(confirm("Archive this page?")){window.open("https://archive.is/?run=1&url="+encodeURIComponent(location));}});}});
 //Forum link shortener
-chrome.storage.sync.get("forum",function(v){if(v.forum==true){$(".normalTextSmall a").each(function(){var forumlink=$(this).text().match(/.+ShowPost\.aspx\?Postid=(\d+)/gi);if(forumlink!=undefined){GetFunc.Forum($(this),forumlink);}});}});
+Storage.Get("forum",function(v){if(v.forum==true){$(".normalTextSmall a").each(function(){var forumlink=$(this).text().match(/.+ShowPost\.aspx\?Postid=(\d+)/gi);if(forumlink!=undefined){GetFunc.Forum($(this),forumlink);}});}});
 //Decal
-chrome.storage.sync.get("decal",function(v){if(v.decal==true){$(".normalTextSmall a").each(function(){var decal=$(this).text().match(/(item\.aspx|item)\?id=(\d+)|(item\.aspx.+\&id=)(\d+)/gi);if(decal!=undefined){var decal2=$(decal).get(0),decal3=decal2.substr(decal2.lastIndexOf("=")+1);GetFunc.Decal($(this),decal3);}});}});
+Storage.Get("decal",function(v){if(v.decal==true){$(".normalTextSmall a").each(function(){var decal=$(this).text().match(/(item\.aspx|item)\?id=(\d+)|(item\.aspx.+\&id=)(\d+)/gi);if(decal!=undefined){var decal2=$(decal).get(0),decal3=decal2.substr(decal2.lastIndexOf("=")+1);GetFunc.Decal($(this),decal3);}});}});
 //Profile
-chrome.storage.sync.get("profile",function(v){if(v.profile==true){$(".normalTextSmall  a").each(function(){var user=$(this).text().match(/.+user.aspx\?id=(\d+)/gi);if(user!=undefined){GetFunc.OldProfile($(this),user);}else{}var user2=$(this).text().match(/.+users\/(\d+)/gi);if(user2!=undefined){GetFunc.Profile($(this),user2);}else{}});}});
+Storage.Get("profile",function(v){if(v.profile==true){$(".normalTextSmall  a").each(function(){var user=$(this).text().match(/.+user.aspx\?id=(\d+)/gi);if(user!=undefined){GetFunc.OldProfile($(this),user);}else{}var user2=$(this).text().match(/.+users\/(\d+)/gi);if(user2!=undefined){GetFunc.Profile($(this),user2);}else{}});}});
 //Games
-chrome.storage.sync.get("games",function(v){if(v.games==true){$(".normalTextSmall a").each(function(){var game=$(this).text().match(/.+\/games\/(\d+)/gi);if(game!=undefined){var decal2=$(game).get(0),decal3=GetFunc.getId(decal2);GetFunc.Game($(this),decal3);}});}});
+Storage.Get("games",function(v){if(v.games==true){$(".normalTextSmall a").each(function(){var game=$(this).text().match(/.+\/games\/(\d+)/gi);if(game!=undefined){var decal2=$(game).get(0),decal3=GetFunc.getId(decal2);GetFunc.Game($(this),decal3);}});}});
 //Safe Link Protection
-chrome.storage.sync.get("protection",function(v){if(v.protection==true){$(".normalTextSmall a").each(function(){var safelinks=$(this).text().match(/(rblxofftopic\.wikia|youtu.be|tumblr|prntscr|google|rbxcdn|twitch|roblox|imgur|strawpoll|youtube|twitter|gyazo|facebook)/gi);if(safelinks){}else{$(this).on("click",function(e){e.preventDefault();if(confirm("Are you sure you want to visit this link?")){window.open($(this).text());}else{}});}});}});
+Storage.Get("protection",function(v){if(v.protection==true){$(".normalTextSmall a").each(function(){var safelinks=$(this).text().match(/(rblxofftopic\.wikia|youtu.be|tumblr|prntscr|google|rbxcdn|twitch|roblox|imgur|strawpoll|youtube|twitter|gyazo|facebook)/gi);if(safelinks){}else{$(this).on("click",function(e){e.preventDefault();if(confirm("Are you sure you want to visit this link?")){window.open($(this).text());}else{}});}});}});
 //Link preview
-chrome.storage.sync.get("advert",function(v){if(v.advert==true){$(function(){var ifr=document.createElement("iframe");ifr.height=275;ifr.width=550;ifr.id="tail";ifr.style.display="none";ifr.setAttribute("sandbox","allow-scripts allow-same-origin");$("body").append(ifr);$(".normalTextSmall a").bind("mouseover",function(e){if($(".normalTextSmall a").attr("href").match(/rbxcdn/)){$("#tail").attr("src",""+$(this).attr("href"));$("#tail").css({width:"auto",height:"auto","z-index":"50",position:"absolute",border:"0",left:e.pageX-50,top:e.pageY+20});$("#tail").fadeIn("slow");}}).mouseout(function(){$(document).on("click",function(){$("#tail").fadeOut();});});});}});
+Storage.Get("advert",function(v){if(v.advert==true){$(function(){var ifr=document.createElement("iframe");ifr.height=275;ifr.width=550;ifr.id="tail";ifr.style.display="none";ifr.setAttribute("sandbox","allow-scripts allow-same-origin");$("body").append(ifr);$(".normalTextSmall a").bind("mouseover",function(e){if($(".normalTextSmall a").attr("href").match(/rbxcdn/)){$("#tail").attr("src",""+$(this).attr("href"));$("#tail").css({width:"auto",height:"auto","z-index":"50",position:"absolute",border:"0",left:e.pageX-50,top:e.pageY+20});$("#tail").fadeIn("slow");}}).mouseout(function(){$(document).on("click",function(){$("#tail").fadeOut();});});});}});
 //End
 })

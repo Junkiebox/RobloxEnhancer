@@ -1,6 +1,6 @@
 $(window).load(function() {
     var success = false;
-    chrome.storage.sync.get("mysiggy", function(obj) {
+    Storage.Get("mysiggy", function(obj) {
         if ($('#ctl00_cphRoblox_Createeditpost1_PostForm_PostBody').val()) {
             $.growl.warning({
                 message: "Found Text || Siggy Aborted"

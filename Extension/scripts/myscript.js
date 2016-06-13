@@ -14,14 +14,14 @@ $(function(){
 	setInterval(function(){$.get("http://api.roblox.com/incoming-items/counts").success(function(num){if(num.unreadMessageCount>0){$("#nav-message>.rbx-highlight").text(""+num.unreadMessageCount);}else{$("#nav-message>.rbx-highlight").text("");}});},15000);
 	
 	//Background color
-	chrome.storage.sync.get('background',function(v){
+	Storage.Get('background',function(v){
 	if(v.background==true){
 	$('#ctl00_cphRoblox_ThreadView1_ctl00_Search').add('placeholder','Change background color!')
 	$('#ctl00_cphRoblox_ThreadView1_ctl00_Search').colpick({
 		onChange:function(hsb,hex,rgb,el,bySetColor) {
 		$('.container-fluid').css('background','#'+hex)
 		$('body').css('background','#'+hex)
-		chrome.storage.sync.set({'color':'#'+hex})
+		Storage.Set({'color':'#'+hex})
 		} })
 
 	$('#ctl00_cphRoblox_ThreadView1_ctl00_SearchButton').val('Reset')
@@ -32,7 +32,7 @@ $(function(){
 	});}})
 	
 	//Track Thread
-	chrome.storage.sync.get("TrackThread",function(v){if(v.TrackThread==true){
+	Storage.Get("TrackThread",function(v){if(v.TrackThread==true){
 		function mark(){
 			if($('#ctl00_cphRoblox_PostView1_ctl00_TrackThread').is(':checked')){
 				$('#RobloxEnhancer').check();
@@ -85,11 +85,11 @@ $(function(){
 	}})
 
 	//Auto Refresh
-	chrome.storage.sync.get('refresh',function(v){ if(v.refresh==true){
+	Storage.Get('refresh',function(v){ if(v.refresh==true){
 		function Refresh(){
 		if(window.location.href.match(/ShowForum.aspx/g)){
 			$('body').fadeOut(1000, function(){location.reload(true);});};};
-			chrome.storage.sync.get('time',function(v){(v.time)?setInterval(function(){Refresh()},v.time):setInterval(function(){Refresh()},30000)})
+			Storage.Get('time',function(v){(v.time)?setInterval(function(){Refresh()},v.time):setInterval(function(){Refresh()},30000)})
 	}})
 
 	//Ban script
@@ -107,7 +107,7 @@ $(function(){
 	$('#ctl00_cphRoblox_Createeditpost1_PostForm_ReplyBody').linkify({target:'_blank'});
 	
 	//Online Status
-	chrome.storage.sync.get("Status",function(v){if(v.Status==true){
+	Storage.Get("Status",function(v){if(v.Status==true){
 		var status2 = $('.profile-avatar-status').prop('title');
 		var status = " "+$('.profile-avatar-status').prop('title');
 		var UserGame = $('.avatar-status').prop('href')
@@ -173,7 +173,7 @@ $(function(){
 
 //auto complete quotes.
 //Do Not Steal!
-chrome.storage.sync.get("AutoComplete",function(t){1==t.AutoComplete&&$(function(){document.onkeypress=function(t){t=t||window.event;var o=t.keyCode||t.which;if(location.href.match(/AddPost.aspx/)){if("34"==o){var e=$("#ctl00_cphRoblox_Createeditpost1_PostForm_PostBody");e.insertAtCaret('"')}}else $(".txtbox")&&"34"==o&&$(".txtbox").insertAtCaret('"')}})});
+Storage.Get("AutoComplete",function(t){1==t.AutoComplete&&$(function(){document.onkeypress=function(t){t=t||window.event;var o=t.keyCode||t.which;if(location.href.match(/AddPost.aspx/)){if("34"==o){var e=$("#ctl00_cphRoblox_Createeditpost1_PostForm_PostBody");e.insertAtCaret('"')}}else $(".txtbox")&&"34"==o&&$(".txtbox").insertAtCaret('"')}})});
   //End
 });
 console.log('Roblox Enhancer Loaded')
