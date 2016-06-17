@@ -8,6 +8,7 @@ Storage.Set({'protection':true})
 Storage.Set({'AutoComplete':true})
 Storage.Set({'Status':true})
 Storage.Set({'TrackThread':true})
+chrome.storage.local.set({'WelcomeMessage':'off'})
 
 setInterval(function() {
     $.get('https://api.roblox.com/incoming-items/counts').success(function(num) {
@@ -26,7 +27,7 @@ setInterval(function() {
             })
         }
     })
-}, 15000)
+}, 60000)
 
 function getVersion() {
     var version = 'NaN';
@@ -54,22 +55,23 @@ setInterval(function(){
 },60000)
 
 $(function() {
-    localStorage.setItem('alerted', 'no')
-    if (localStorage.getItem('alerted', 'no')) {
-		$.get('https://github.com/Junkiebox/RobloxEnhancer/wiki/Updates-And-Features').success(function(update){
-        $.get('http://www.roblox.com/mobileapi/userinfo').success(function(r) {
-            localStorage.getItem('alerted', 'yes');
-            window.localStorage.clear();
-            if (r.UserName) {
-                Notify('images/icon.png', 'Roblox Enhancer', 'Welcome ' + r.UserName + '\n Version: ' + getVersion(), '1', 'Read the latest updates/features | Last Updated: '+$('.gh-header-meta > relative-time',update).text())
-            } else {
-                Notify('images/icon.png', 'Roblox Enhancer', 'Login Required' + '\n Version: ' + getVersion(), '1', 'Read the latest updates/features | Last Updated: '+$('.gh-header-meta > relative-time',update).text())
-				}
+    chrome.storage.local.get('WelcomeMessage',function(a){
+		if(a.WelcomeMessage == 'off'){
+			$.get('https://github.com/Junkiebox/RobloxEnhancer/wiki/Updates-And-Features').success(function(update){
+			$.get('http://www.roblox.com/mobileapi/userinfo').success(function(r) {
+				chrome.storage.local.set({'WelcomeMessage':'on'})
+				if (r.UserName) {
+					Notify('images/icon.png', 'Roblox Enhancer', 'Welcome ' + r.UserName + '\n Version: ' + getVersion(), '1', 'Read the latest updates/features | Last Updated: '+$('.gh-header-meta > relative-time',update).text())
+				} else {
+					Notify('images/icon.png', 'Roblox Enhancer', 'Login Required' + '\n Version: ' + getVersion(), '1', 'Read the latest updates/features | Last Updated: '+$('.gh-header-meta > relative-time',update).text())
+					}
+				})
 			})
-		})
-    }
+		}
+    })
 })
 
+//Catalog notifications
 var Showed = [];
 function Exists(item,icon,header,content,url){
 	 var exists = ($.inArray(item, Showed) != -1);
@@ -81,7 +83,6 @@ function Exists(item,icon,header,content,url){
 	}
 }
 		
-
 function GetNew(){
 	 $.get("http://assetgame.roblox.com/asset/?id=311113132").success(function(r) {
 		 var a = r.replace(/&gt;/g,">").replace(/&quot;/g,"\"").replace(/&#039;/g,"'").replace(/&amp;/g,"&")
@@ -92,15 +93,39 @@ function GetNew(){
 			}
 	 })
 }
-GetNew();
+
+
 setInterval(function(){
-	GetNew();
-},5000)
+	chrome.storage.sync.get('ItemNotifier',function(a){
+		if(a.ItemNotifier){
+				GetNew();
+				}
+			});
+},10000);
 
 
+function CollectBadges(item,icon,header,content,url){
+		chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+			chrome.tabs.sendMessage(tabs[0].id, {action: [icon,header,content,url] }, function(response) {});  
+		});
+}
 
+function GetBadges(){
+	 $.get("http://assetgame.roblox.com/asset/?id=311113132").success(function(r) {
+		 var a = r.replace(/&gt;/g,">").replace(/&quot;/g,"\"").replace(/&#039;/g,"'").replace(/&amp;/g,"&")
+		 var b = $('[name="Value"]',a).html()
+		 var c = JSON.parse(b.substring(b.indexOf("["), b.lastIndexOf("]") + 1));
+		 for(var n in c){
+				CollectBadges(c[n].id,c[n].icon,c[n].header,c[n].content,c[n].url.replace(/\&amp;rbxp\=\d*/g, '') )
+			}
+	 })
+}
 
-
+chrome.extension.onRequest.addListener(function(message,sender){
+  if(message.action === "GetBadges"){
+    GetBadges();
+  }
+});
 
 
 $.get("http://roblox.com/mobileapi/userinfo", function(r) {
@@ -127,13 +152,13 @@ $(function poll() {
         success: function(num) {
             if (!done) {
                 if (num.unreadMessageCount > 30) {} else {
-                    num.unreadMessageCount > 0 ? Notify('images/HvmE2Fa.png', 'Message Notifier', 'You have ' + num.unreadMessageCount + ' new message(s)!', '2', 'Click to view messages!') : null;
+                    (num.unreadMessageCount > 0)?Notify('images/HvmE2Fa.png', 'Message Notifier', 'You have ' + num.unreadMessageCount + ' new message(s)!', '2', 'Click to view messages!') : null;
                 }
                 done = true;
             }
-            if (num.unreadMessageCount == 0) {
-                done = false;
-            };
+			
+            (num.unreadMessageCount == 0)?done=false:'';
+			
             setTimeout(function() {
                 poll()
             }, 30000)

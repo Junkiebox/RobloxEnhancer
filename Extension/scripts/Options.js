@@ -17,6 +17,7 @@ $(".advert").on("click",function(){Storage.Set({advert:$(".advert").prop("checke
 $(".AutoComplete").on("click",function(){Storage.Set({AutoComplete:$(".AutoComplete").prop("checked")});});
 $(".Status").on("click",function(){Storage.Set({Status:$(".Status").prop("checked")});});
 $(".TrackThread").on("click",function(){Storage.Set({TrackThread:$(".TrackThread").prop("checked")});});
+$(".ItemNotifier").on("click",function(){Storage.Set({ItemNotifier:$(".ItemNotifier").prop("checked")});});
 $("input").click(function(){$('.saved').filter(':not(:animated)').animate({width:'toggle'},800);window.setTimeout(function(){$(".saved").fadeOut(800);},3000)})
 
 //Refresh
@@ -39,9 +40,11 @@ Storage.Get("Status",function(v){$(".Status").prop("checked",v.Status);if(v.Stat
 Storage.Get("AutoComplete",function(v){$(".AutoComplete").prop("checked",v.AutoComplete);if(v.AutoComplete==true){$(".AutoComplete").parent().addClass("GreenBackground");}else{$(".AutoComplete").parent().removeClass("GreenBackground");}});
 Storage.Get("refresh",function(v){$(".refresh").prop("checked",v.refresh);if(v.refresh==true){$(".refresh").parent().addClass("GreenBackground");}else{$(".refresh").parent().removeClass("GreenBackground");}});
 Storage.Get("TrackThread",function(v){$(".TrackThread").prop("checked",v.TrackThread);if(v.TrackThread==true){$(".TrackThread").parent().addClass("GreenBackground");}else{$(".TrackThread").parent().removeClass("GreenBackground");}});
+Storage.Get("ItemNotifier",function(v){$(".ItemNotifier").prop("checked",v.ItemNotifier);if(v.ItemNotifier==true){$(".ItemNotifier").parent().addClass("GreenBackground");}else{$(".ItemNotifier").parent().removeClass("GreenBackground");}});
 Storage.Get("ASeconds",function(v){if(v.ASeconds==true){$(".ASeconds").prop("checked",v.ASeconds);}});
 Storage.Get("BSeconds",function(v){if(v.BSeconds==true){$(".BSeconds").prop("checked",v.BSeconds);}});
 Storage.Get("CSeconds",function(v){if(v.CSeconds==true){$(".CSeconds").prop("checked",v.CSeconds);}});
+$('#Catalog').on('click',function(){chrome.tabs.create({url: 'https://www.roblox.com/games/?Keyword=CatalogNotification'})});
 })
 
 /*

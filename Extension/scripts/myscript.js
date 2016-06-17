@@ -11,7 +11,70 @@ $(function(){
 		_pl:$('#ctl00_cphRoblox_PostView1_ctl00_PostList')
 };
 
-	setInterval(function(){$.get("http://api.roblox.com/incoming-items/counts").success(function(num){if(num.unreadMessageCount>0){$("#nav-message>.rbx-highlight").text(""+num.unreadMessageCount);}else{$("#nav-message>.rbx-highlight").text("");}});},15000);
+// Aetricity Script
+
+/*
+var buttons = {
+	'PostButton': $("#ctl00_cphRoblox_Createeditpost1_PostForm_PostButton")
+}
+
+//Update function
+function updateThis() {
+	//Subtract seconds
+	var current_seconds = 0;
+	chrome.storage.local.get("seconds", function(a) {
+		current_seconds = a.seconds;
+		if (current_seconds != 0) {
+			current_seconds = current_seconds - 1;
+			chrome.storage.local.set({"seconds": current_seconds});
+		}
+	});
+	
+	//Post button countdown/disabled
+	if (buttons.PostButton != null) {
+		chrome.storage.local.get("seconds", function(a) {
+			if (a.seconds > 0) {
+				buttons.PostButton.val("Post (" + a.seconds + ")");
+				buttons.PostButton.prop('disabled',true);
+			}else{
+				buttons.PostButton.val(" Post ");
+				buttons.PostButton.prop('disabled',false);
+			}
+		})
+	}
+}
+
+//Page loaded
+$(function(){
+	//Check if user has posted
+	chrome.storage.local.get("hasposted", function(a) {
+		if (a.hasposted == false) {
+			console.log("not posted");
+		}else{
+			console.log("posted:");
+			var PostInterval=setInterval(updateThis, 1000);
+			chrome.storage.local.get("seconds", function(a) {
+				if(a.seconds==0){
+					chrome.storage.local.set({"hasposted": false});
+					clearInterval(PostInterval);
+				};
+			})
+		}
+	});
+	//Set seconds after button has been clicked
+	if (buttons.PostButton != null) {
+		console.log("present!");
+		buttons.PostButton.on("click", function() {
+			chrome.storage.local.set({"seconds": 30})
+			chrome.storage.local.set({"hasposted": true});
+			console.log("posted");
+		})
+	}
+})
+*/
+// Aetricity Script
+
+	setInterval(function(){$.get("https://api.roblox.com/incoming-items/counts").success(function(num){if(num.unreadMessageCount>0){$("#nav-message>.rbx-highlight").text(""+num.unreadMessageCount);}else{$("#nav-message>.rbx-highlight").text("");}});},60000);
 	
 	//Background color
 	Storage.Get('background',function(v){
@@ -52,7 +115,7 @@ $(function(){
 				mark();
 				$('#RobloxEnhancerText').text('Error occured. Please try again!');
 			},8000);
-			
+			$.ajaxSetup({'async':'true'});
 			var loc=window.location;
 			$.get(loc).success(function(r){
 				$.post(loc,{

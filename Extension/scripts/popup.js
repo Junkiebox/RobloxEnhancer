@@ -41,6 +41,9 @@ $(function() {
 })
 
 var banned=[];	
+msg.Storage.local.get('Banned',function(a){
+	banned.push(a.Banned)
+})
 function banuser(){
 	if($('.Username').val() !=""){
 		if($('.Username').val().match(/randcomo26/gi)){
@@ -54,6 +57,7 @@ function banuser(){
 	msg.Storage.local.set({'Banned':banned})
 }
 
+/*
 $(function(){
 	msg.Storage.local.get('Banned',function(user){
 	for(var a in user){
@@ -62,7 +66,8 @@ $(function(){
 		}
 	})
 })
-	
+*/
+
 function save() {
 if ($('#sig').val() != "") {
 	msg.Storage.sync.set({"mysiggy": $('#sig').val()}, function() {

@@ -145,4 +145,22 @@
 		})}})
 		window.location="http://roblox.com/User.aspx"
 	})
+	
+	
+	
+	//Catalog Badges
+//var items = [];
+function Exists2(item,icon,header,content,url){
+	//chrome.storage.sync.get('Items',function(a){
+		//var exists = ($.inArray(item, a.Items) != -1);
+		//if(!exists){
+			//items.push(item)
+			chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+				chrome.tabs.sendMessage(tabs[0].id, {action: [icon,header,content,url] }, function(response) {});  
+			});
+			//chrome.storage.sync.set({'Items':items})
+		//}
+	//})
+}
+
 	*/

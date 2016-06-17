@@ -14,3 +14,6 @@ chrome.storage.sync.get('background',function(v){
 	}
 })
 }(window))
+
+
+
