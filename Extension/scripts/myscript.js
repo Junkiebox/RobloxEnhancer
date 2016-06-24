@@ -74,7 +74,16 @@ $(function(){
 */
 // Aetricity Script
 
-	setInterval(function(){$.get("https://api.roblox.com/incoming-items/counts").success(function(num){if(num.unreadMessageCount>0){$("#nav-message>.rbx-highlight").text(""+num.unreadMessageCount);}else{$("#nav-message>.rbx-highlight").text("");}});},60000);
+	//Message icon update.
+	chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+		if(msg.unreadMessageCount){
+			$("#nav-message>.notification-blue").removeClass('hide');
+			$("#nav-message>.notification-blue").text("" + msg.unreadMessageCount);
+			if(msg.unreadMessageCount == 'NoMsgs'){
+				$("#nav-message>.notification-blue").addClass('hide');
+			}
+		}
+	});
 	
 	//Background color
 	Storage.Get('background',function(v){

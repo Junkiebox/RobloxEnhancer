@@ -10,24 +10,6 @@ Storage.Set({'Status':true})
 Storage.Set({'TrackThread':true})
 chrome.storage.local.set({'WelcomeMessage':'off'})
 
-setInterval(function() {
-    $.get('https://api.roblox.com/incoming-items/counts').success(function(num) {
-        if (num.unreadMessageCount > 50) {
-            chrome.browserAction.setBadgeText({
-                text: '50+'
-            })
-        } else
-        if (num.unreadMessageCount > 0) {
-            chrome.browserAction.setBadgeText({
-                text: '' + num.unreadMessageCount
-            })
-        } else {
-            chrome.browserAction.setBadgeText({
-                text: ''
-            })
-        }
-    })
-}, 60000)
 
 function getVersion() {
     var version = 'NaN';
@@ -42,17 +24,6 @@ function speak(text) {
 	var msg = new SpeechSynthesisUtterance(text);
 	window.speechSynthesis.speak(msg);
 }
-
-
-var recent="";
-setInterval(function(){
-	$.get('https://github.com/Junkiebox/RobloxEnhancer/wiki/Updates-And-Features').success(function(r){
-		if(recent!=$('.gh-header-meta > relative-time',r).text()){
-			recent=$('.gh-header-meta > relative-time',r).text()
-			Notify('images/github.png','New updates!','Wiki was updated on '+$('.gh-header-meta > relative-time',r).text(), '5' ,'Click here for more info!')
-		}
-	})
-},60000)
 
 $(function() {
     chrome.storage.local.get('WelcomeMessage',function(a){
@@ -127,7 +98,7 @@ chrome.extension.onRequest.addListener(function(message,sender){
   }
 });
 
-
+/*
 $.get("http://roblox.com/mobileapi/userinfo", function(r) {
     if (!localStorage.getItem('Tixs')) {
         localStorage.setItem('Tixs', r.TicketsBalance);
@@ -142,40 +113,30 @@ $.get("http://roblox.com/mobileapi/userinfo", function(r) {
         })
     }
 })
-
-var done = false;
-$(function poll() {
-    $.ajax({
-        url: "https://api.roblox.com/incoming-items/counts",
-        type: 'GET',
-        context: document.body,
-        success: function(num) {
-            if (!done) {
-                if (num.unreadMessageCount > 30) {} else {
-                    (num.unreadMessageCount > 0)?Notify('images/HvmE2Fa.png', 'Message Notifier', 'You have ' + num.unreadMessageCount + ' new message(s)!', '2', 'Click to view messages!') : null;
-                }
-                done = true;
-            }
-			
-            (num.unreadMessageCount == 0)?done=false:'';
-			
-            setTimeout(function() {
-                poll()
-            }, 30000)
-        },
-        error: function() {
-            console.error("Cannot reach server")
-        }
-    })
-})
+*/
 
 
+//Polling requests
+$.ajaxSetup({
+    timeout: 5000
+});
+$(function poll(){$.get('https://github.com/Junkiebox/RobloxEnhancer/wiki/Updates-And-Features').success(function(r){chrome.storage.sync.set({'Wiki':$('.gh-header-meta > relative-time',r).text()});chrome.storage.sync.get('Wiki',function(recent){if(recent.Wiki!=$('.gh-header-meta > relative-time',r).text()){Notify('images/github.png','Wiki Updates!','Wiki was updated on: '+$('.gh-header-meta > relative-time',r).text(),'5','Click here for more info!')}})})
+setTimeout(function(){poll();},60000)})
+$(function poll(){$.get("https://www.roblox.com/messages/api/get-my-unread-messages-count").success(function(num){if(num.count>0){chrome.tabs.query({active:true,currentWindow:true},function(tabs){chrome.tabs.sendMessage(tabs[0].id,{unreadMessageCount:num.count},function(response){});});}else{chrome.tabs.query({active:true,currentWindow:true},function(tabs){chrome.tabs.sendMessage(tabs[0].id,{unreadMessageCount:'NoMsgs'},function(response){});});}});setTimeout(function(){poll();},30000)})
+var done=false;$(function poll(){$.ajax({url:"https://www.roblox.com/messages/api/get-my-unread-messages-count",type:'GET',context:document.body,success:function(num){if(!done){if(num.count>30){}else{(num.count>0)?Notify('images/HvmE2Fa.png','Message Notifier','You have '+num.count+' new message(s)!','2','Click to view messages!'):null;}
+done=true;}
+(num.count==0)?done=false:'';},error:function(){console.error("Cannot reach server")}})
+setTimeout(function(){poll()},60000)})
+$(function poll(){$.get('https://www.roblox.com/messages/api/get-my-unread-messages-count').success(function(num){if(num.count>50){chrome.browserAction.setBadgeText({text:'50+'})}else
+if(num.count>0){chrome.browserAction.setBadgeText({text:''+num.count})}else{chrome.browserAction.setBadgeText({text:''})}})
+setTimeout(function(){poll();},60000)})
 
 
-
+//Imgur link
 function searchimgur(info){ var searchstring = info.selectionText; chrome.tabs.create({url: "http://imgur.com/" + searchstring})}
 chrome.contextMenus.create({title: "Search Imgur", contexts:["selection"], onclick: searchimgur});
 
+//Auto update
 setInterval(function(){
 	chrome.runtime.requestUpdateCheck(function(x){
 		if(x=="update_available"){

@@ -65,7 +65,7 @@ var GetFunc = {
         })
     },
     Load: function(image, link2, name) {
-        image.append('<li><img src="' + link2 + '" title="' + name + '" style="width:100px;height:100px;"></li>')
+        image.append('<img src="' + link2 + '" title="' + name + '" style="width:100px;height:100px;">')
     },
     Decal: function(image, decal) {
         $.ajax({
