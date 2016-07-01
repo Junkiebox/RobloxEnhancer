@@ -34,10 +34,11 @@ var NewBadge = '<li class="list-item game-card">'+
   
   if($('#loading')){$('#loading').remove();}
   if(header.match(/New/)){
-	$('#GamesPageLeftColumn > .hlist').append(NewBadge)
-	$('.hlist').css({'white-space':'pre-line'})
+	$('#GamesPageLeftColumn > .hlist').append(NewBadge);
+	$('.hlist').css({'white-space':'pre-line'});
   }else{
-	$('#GamesPageLeftColumn > .hlist').append(Badge)
+	$('#GamesPageLeftColumn > .hlist').append(Badge);
+	$('.hlist').css({'white-space':'pre-line'});
   }
 }
 

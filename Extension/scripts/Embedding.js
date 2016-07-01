@@ -86,7 +86,7 @@ var GetFunc = {
     },
     Forum: function(image, decal) {
         $.ajax({
-            url: decal,
+            url: decal.replace(/https|http|httpss/g,'https'),
             type: 'get',
 			cache:'false',
 			async:'false',
@@ -114,7 +114,7 @@ Storage.Get("youtube",function(e){function t(e,t){e.on("click",function(e){e.pre
 //Archive link
 Storage.Get("archive",function(v){if(v.archive==true){$("#forum-nav").append('<a id="EnhancerV2Archive"class="menuTextLink"> Archive this page?</a>');var location=window.location.href;$("#EnhancerV2Archive").on("click",function(e){e.preventDefault();if(confirm("Archive this page?")){window.open("https://archive.is/?run=1&url="+encodeURIComponent(location));}});}});
 //Forum link shortener
-Storage.Get("forum",function(v){if(v.forum==true){$(".normalTextSmall a").each(function(){var forumlink=$(this).text().match(/.+ShowPost\.aspx\?Postid=(\d+)/gi);if(forumlink!=undefined){GetFunc.Forum($(this),forumlink);}});}});
+Storage.Get("forum",function(v){if(v.forum==true){$(".normalTextSmall a").each(function(){var forumlink=$(this).text().match(/.+ShowPost\.aspx\?Postid=(\d+)/gi);if(forumlink!=undefined){GetFunc.Forum($(this),$(this).prop('href'));}});}});
 //Decal
 Storage.Get("decal",function(v){if(v.decal==true){$(".normalTextSmall a").each(function(){var decal=$(this).text().match(/(item\.aspx|item)\?id=(\d+)|(item\.aspx.+\&id=)(\d+)/gi);if(decal!=undefined){var decal2=$(decal).get(0),decal3=decal2.substr(decal2.lastIndexOf("=")+1);GetFunc.Decal($(this),decal3);}});}});
 //Profile
