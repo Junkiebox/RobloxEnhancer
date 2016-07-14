@@ -1,3 +1,6 @@
+Old youtube.
+//Storage.Get("youtube",function(e){function t(e,t){e.on("click",function(e){e.preventDefault(),$("."+t).fadeToggle()}),e.dblclick(function(e){e.preventDefault(),window.open("https://youtu.be/"+t)})}1==e.youtube&&$(".normalTextSmall a").each(function(){function e(e,t,a,o){e.append('<iframe allowfullscreen="1" webkitallowfullscreen="1" src="'+t+a+o+'" class="'+a+' video" frameBorder="0" style="display:none;height:275px;width:550px;"></iframe>')}var a=$(this).text().match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([\w\-]{10,12})(?:&feature=related)?(?:[\w\-]{0})?/g);if(a){var o=GetFunc.getId(a[0]),c=o.replace(/watch\?v=/g,""),n="https://www.youtube.com/embed/";time="?version=3&start="+$(this).text().match(/(\?t=(\w+))/g),t($(this),c),e($(this),n,c,time.replace(/\?t=/g,""))}})});
+
 /*
 	count = 31
 	$(function(){

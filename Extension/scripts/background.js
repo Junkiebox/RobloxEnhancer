@@ -28,8 +28,8 @@ function speak(text) {
 $(function() {
     chrome.storage.local.get('WelcomeMessage',function(a){
 		if(a.WelcomeMessage == 'off'){
-			$.get('https://github.com/Junkiebox/RobloxEnhancer/wiki/Updates-And-Features').success(function(update){
-			$.get('http://www.roblox.com/mobileapi/userinfo').success(function(r) {
+			$.get(Roblox.GitHub).success(function(update){
+			$.get(Roblox.Mobileuser).success(function(r) {
 				chrome.storage.local.set({'WelcomeMessage':'on'})
 				if (r.UserName) {
 					Notify('images/icon.png', 'Roblox Enhancer', 'Welcome ' + r.UserName + '\n Version: ' + getVersion(), '1', 'Read the latest updates/features | Last Updated: '+$('.gh-header-meta > relative-time',update).text())
@@ -55,7 +55,7 @@ function Exists(item,icon,header,content,url){
 }
 		
 function GetNew(){
-	 $.get("http://assetgame.roblox.com/asset/?id=311113132").success(function(r) {
+	 $.get(Roblox.Items).success(function(r) {
 		 var a = r.replace(/&gt;/g,">").replace(/&quot;/g,"\"").replace(/&#039;/g,"'").replace(/&amp;/g,"&")
 		 var b = $('[name="Value"]',a).html()
 		 var c = JSON.parse(b.substring(b.indexOf("["), b.lastIndexOf("]") + 1));
@@ -82,7 +82,7 @@ function CollectBadges(item,icon,header,content,url){
 }
 
 function GetBadges(){
-	 $.get("http://assetgame.roblox.com/asset/?id=311113132").success(function(r) {
+	 $.get(Roblox.Items).success(function(r) {
 		 var a = r.replace(/&gt;/g,">").replace(/&quot;/g,"\"").replace(/&#039;/g,"'").replace(/&amp;/g,"&")
 		 var b = $('[name="Value"]',a).html()
 		 var c = JSON.parse(b.substring(b.indexOf("["), b.lastIndexOf("]") + 1));
@@ -95,6 +95,12 @@ function GetBadges(){
 chrome.extension.onRequest.addListener(function(message,sender){
   if(message.action === "GetBadges"){
     GetBadges();
+  }
+});
+
+chrome.extension.onRequest.addListener(function(message,sender){
+  if(message.action === "UnfollowAll"){
+	friends.token(function(ken){$.get(Roblox.CurrentUser,function(a){$.get(Roblox.Following+''+a).success(function(r){for(var n in r.Friends){friends.unfollow(r.Friends[n].UserId,ken);}});})});
   }
 });
 
@@ -120,14 +126,14 @@ $.get("http://roblox.com/mobileapi/userinfo", function(r) {
 $.ajaxSetup({
     timeout: 5000
 });
-$(function poll(){$.get('https://github.com/Junkiebox/RobloxEnhancer/wiki/Updates-And-Features').success(function(r){chrome.storage.sync.set({'Wiki':$('.gh-header-meta > relative-time',r).text()});chrome.storage.sync.get('Wiki',function(recent){if(recent.Wiki!=$('.gh-header-meta > relative-time',r).text()){Notify('images/github.png','Wiki Updates!','Wiki was updated on: '+$('.gh-header-meta > relative-time',r).text(),'5','Click here for more info!')}})})
+$(function poll(){$.get(Roblox.GitHub).success(function(r){chrome.storage.sync.set({'Wiki':$('.gh-header-meta > relative-time',r).text()});chrome.storage.sync.get('Wiki',function(recent){if(recent.Wiki!=$('.gh-header-meta > relative-time',r).text()){Notify('images/github.png','Wiki Updates!','Wiki was updated on: '+$('.gh-header-meta > relative-time',r).text(),'5','Click here for more info!')}})})
 setTimeout(function(){poll();},60000)})
-$(function poll(){$.get("https://www.roblox.com/messages/api/get-my-unread-messages-count").success(function(num){if(num.count>0){chrome.tabs.query({active:true,currentWindow:true},function(tabs){chrome.tabs.sendMessage(tabs[0].id,{unreadMessageCount:num.count},function(response){});});}else{chrome.tabs.query({active:true,currentWindow:true},function(tabs){chrome.tabs.sendMessage(tabs[0].id,{unreadMessageCount:'NoMsgs'},function(response){});});}});setTimeout(function(){poll();},30000)})
-var done=false;$(function poll(){$.ajax({url:"https://www.roblox.com/messages/api/get-my-unread-messages-count",type:'GET',context:document.body,success:function(num){if(!done){if(num.count>30){}else{(num.count>0)?Notify('images/HvmE2Fa.png','Message Notifier','You have '+num.count+' new message(s)!','2','Click to view messages!'):null;}
+$(function poll(){$.get(Roblox.unreadmessages).success(function(num){if(num.count>0){chrome.tabs.query({active:true,currentWindow:true},function(tabs){chrome.tabs.sendMessage(tabs[0].id,{unreadMessageCount:num.count},function(response){});});}else{chrome.tabs.query({active:true,currentWindow:true},function(tabs){chrome.tabs.sendMessage(tabs[0].id,{unreadMessageCount:'NoMsgs'},function(response){});});}});setTimeout(function(){poll();},30000)})
+var done=false;$(function poll(){$.ajax({url:Roblox.unreadmessages,type:'GET',context:document.body,success:function(num){if(!done){if(num.count>30){}else{(num.count>0)?Notify('images/HvmE2Fa.png','Message Notifier','You have '+num.count+' new message(s)!','2','Click to view messages!'):null;}
 done=true;}
 (num.count==0)?done=false:'';},error:function(){console.error("Cannot reach server")}})
 setTimeout(function(){poll()},60000)})
-$(function poll(){$.get('https://www.roblox.com/messages/api/get-my-unread-messages-count').success(function(num){if(num.count>50){chrome.browserAction.setBadgeText({text:'50+'})}else
+$(function poll(){$.get(Roblox.unreadmessages).success(function(num){if(num.count>50){chrome.browserAction.setBadgeText({text:'50+'})}else
 if(num.count>0){chrome.browserAction.setBadgeText({text:''+num.count})}else{chrome.browserAction.setBadgeText({text:''})}})
 setTimeout(function(){poll();},60000)})
 
