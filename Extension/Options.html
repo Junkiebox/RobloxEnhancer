@@ -18,76 +18,141 @@
     <div id="list">
         <ul>
 			<li>
-			<a href= "#" style="text-decoration:none;color:green;" id="Catalog">Catalog Badges</a>
+			<a href= "#" style="text-decoration:none;" class="GreenBackground" id="Catalog"><img class="BadgeIcon" src="images/badges.png">  Catalog Badges</a>
 				</li>
+				
             <li>
-                <input data-tooltip="Toggle off/on youtube embedding" type="checkbox" id="youtube" class="youtube">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on youtube embedding" type="checkbox" id="youtube" class="youtube">
+					<div class="slider"></div>
+				</label>
 				<label for="youtube">Youtube Embedding</label>
-				</li>
+			</li>
+			
+			<li>
+				<label class="switch">
+					<input type="checkbox" id="BotFilter" class="BotFilter">
+					<div class="slider"></div>
+				</label>
+				<label for="BotFilter">iPad Bot Filter</label>
+			</li>
 		
             <li>
-                <input data-tooltip="Toggle off/on game embedding" type="checkbox" id="games" class="games">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on game embedding" type="checkbox" id="games" class="games">
+					<div class="slider"></div>
+				</label>
 				<label for="games">Game Embedding</label>
-				</li>
+			</li>
+			
             <li>
-                <input data-tooltip="Toggle off/on decal embedding" type="checkbox" id="decal" class="decal">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on decal embedding" type="checkbox" id="decal" class="decal">
+					<div class="slider"></div>
+				</label>
 				<label for="decal">Decal Embedding</label>
-				</li>
+			</li>
+			
             <li>
-                <input data-tooltip="Toggle off/on profile embedding" type="checkbox" id="profile" class="profile">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on profile embedding" type="checkbox" id="profile" class="profile">
+					<div class="slider"></div>
+				</label>
 				<label for="profile">Profile Embedding</label>
-				</li>
+			</li>
+			
 			<li>
-			<input data-tooltip="Toggle off/on status" type="checkbox" id="Status" class="Status">
-			<label for="Status">Status</label>
-				</li>
+				<label class="switch">
+					<input data-tooltip="Toggle off/on status" type="checkbox" id="Status" class="Status">
+					<div class="slider"></div>
+				</label>
+				<label for="Status">Status</label>
+			</li>
+			
 			<li>
-			<input data-tooltip="Toggle off/on TrackThread" type="checkbox" id="TrackThread" class="TrackThread">
-			<label for="TrackThread">Track Thread</label>
-				</li>
+				<label class="switch">
+					<input data-tooltip="Toggle off/on TrackThread" type="checkbox" id="TrackThread" class="TrackThread">
+					<div class="slider"></div>
+				</label>
+				<label for="TrackThread">Track Thread</label>
+			</li>
+			
             <li>
-                <input data-tooltip="Toggle off/on thread link shortener" type="checkbox" id="forum" class="forum">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on thread link shortener" type="checkbox" id="forum" class="forum">
+					<div class="slider"></div>
+				</label>
 				<label for="forum">Thread link shorten</label>
-				</li>
+			</li>
+			
             <li>
-                <input data-tooltip="Toggle off/on shorten links" type="checkbox" id="archive" class="archive">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on shorten links" type="checkbox" id="archive" class="archive">
+					<div class="slider"></div>
+				</label>
 				<label for="archive">Archive link</label>
-				</li>
+			</li>
+			
             <li>
-                <input data-tooltip="Toggle off/on background color change" type="checkbox" id="background" class="background">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on background color change" type="checkbox" id="background" class="background">
+					<div class="slider"></div>
+				</label>
 				<label for="background">Background changer</label>
-				</li>
+			</li>
+			
             <li>
-                <input data-tooltip="Toggle off/on safe link protection" type="checkbox" id="protection" class="protection">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on safe link protection" type="checkbox" id="protection" class="protection">
+					<div class="slider"></div>
+				</label>
 				<label for="protection">Safe links</label>
-				</li>
+			</li>
+			
 			<li>
-                <input data-tooltip="Toggle off/on advert preview" type="checkbox" id="advert" class="advert">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on advert preview" type="checkbox" id="advert" class="advert">
+					<div class="slider"></div>
+				</label>
 				<label for="advert">Advert preview</label>
-				</li>
+			</li>
+			
             <li>
-                <input data-tooltip="Toggle off/on auto refresh" type="checkbox" id="refresh" class="refresh">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on auto refresh" type="checkbox" id="refresh" class="refresh">
+					<div class="slider"></div>
+				</label>
 				<label for="refresh">Auto Refresh | Seconds:</label>
-                <input type="radio" id="first" name="seconds" class="ASeconds">
-				<label for="first">10</label>
-                <input type="radio" id="second" name="seconds" class="BSeconds">
-				<label for="second">20</label>
-                <input type="radio" id="third" name="seconds" class="CSeconds">
-				<label for="third">30</label>
-				</li>
+				<input type="radio" id="first" name="seconds" class="ASeconds">10
+				<input type="radio" id="second" name="seconds" class="BSeconds">20
+				<input type="radio" id="third" name="seconds" class="CSeconds">30
+				
+			</li>
+			
             <li>
-                <input data-tooltip="Toggle off/on OBC theme" type="checkbox" id="obc" class="obc">
+				<label class="switch">
+					<input data-tooltip="Toggle off/on OBC theme" type="checkbox" id="obc" class="obc">
+					<div class="slider"></div>
+				</label>
 				<label for="obc">OBC theme</label>
-				</li>
+			</li>
+			
 			<li>
-				<input data-tooltip="" type="checkbox" id="ItemNotifier" class="ItemNotifier">
+				<label class="switch">
+					<input data-tooltip="" type="checkbox" id="ItemNotifier" class="ItemNotifier">
+					<div class="slider"></div>
+				</label>
 				<label for="ItemNotifier">Item Notifications</label>
-				</li>
-                <li>
-                  <input data-tooltip="Toggle off/on auto closing quotes." type="checkbox" id="AutoComplete" class="AutoComplete">
-				  <label for="AutoComplete">Auto Closing Quotes</label>
-                </li>
-              </li>
+			</li>
+			
+			<li>
+				<label class="switch">
+					<input data-tooltip="Toggle off/on auto closing quotes." type="checkbox" id="AutoComplete" class="AutoComplete">
+					<div class="slider"></div>
+				</label>
+				<label for="AutoComplete">Auto Closing Quotes</label>
+			</li>
+            </li>
         </ul>
     </div>
 </body>

@@ -11,7 +11,14 @@ $(function(){
 		_pl:$('#ctl00_cphRoblox_PostView1_ctl00_PostList')
 };
 
-
+/*
+$('.post-list-subject').each(function(){ 
+	var bots = $(this).find('.thread-link-container').text().match(/ipad/);
+	if(bots){
+		$(this).find('.thread-link-container').parent().parent().parent().parent().remove();
+	}
+})
+*/
 
 // Aetricity Script
 

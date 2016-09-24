@@ -69,7 +69,7 @@ var GetFunc = {
     },
     Decal: function(image, decal) {
         $.ajax({
-            url: '/item.aspx?&id=' + decal,
+            url: 'https://www.roblox.com/library/'+decal.replace(/\/library\//gi,'')+'/--',
 			cache:'false',
 			async:'true',
             success: function(data) {
@@ -86,7 +86,8 @@ var GetFunc = {
     },
     Forum: function(image, decal) {
         $.ajax({
-            url: decal.replace(/https|http|httpss/g,'https'),
+			//.replace(/https|http|httpss/g,'https')
+            url: decal.replace(/.*?:/g, ""),
             type: 'get',
 			cache:'false',
 			async:'false',
@@ -110,17 +111,18 @@ $(window).bind("load",function(){
 $.ajaxSetup({ cache: false });
 $('#ctl00_cphRoblox_Createeditpost1_PostForm_PostBody').focus();$('#ctl00_cphRoblox_Createeditpost1_PostForm_NewPostSubject').focus();
 //R+ embedding support
-Storage.Get("decal",function(v){if(v.decal==true){$(".normalTextSmall").html(function(i, text) {return String(text).replace(/r\+\:\/\/(\d+)/gi,function(x,y){ return "<a href='https://roblox.com/item.aspx?id="+y+"' target='_blank' rel='nofollow'></a>"});});}});
+Storage.Get("decal",function(v){if(v.decal==true){$(".normalTextSmall").html(function(i, text) {return String(text).replace(/r\+\:\/\/(\d+)/gi,function(x,y){ return "<a href='https://www.roblox.com/library/"+y+"/--' target='_blank' rel='nofollow'></a>"});});}});
 //Youtube Embed
-Storage.Get("youtube",function(m){function clicked(a,b){a.on("click",function(d){d.preventDefault();$("."+b).fadeToggle();});a.dblclick(function(c){c.preventDefault();window.open("https://youtu.be/"+b);});}if(m.youtube){$(".normalTextSmall a").each(function(){function frame(e,t,a,o){e.append('<iframe allowfullscreen="1" webkitallowfullscreen="1" src="'+t+a+o+'" class="'+a+' video" frameBorder="0" style="display:none;height:275px;width:550px;"></iframe>');}var link=$(this).text().match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([\w\-]{10,12})(?:&feature=related)?(?:[\w\-]{0})?/g);if(link){var urlID=GetFunc.getId(link[0]),n="https://www.youtube.com/embed/",c=urlID.replace(/watch\?v=/g,""),time="?version=3&start="+$(this).text().match(/(\?t=(\w+))/g);clicked($(this),c);frame($(this),n,c,time.replace(/\?t=/g,""));}});}});
+Storage.Get("youtube",function(m){function frame(e,t,a,o){$("div."+a).remove();$("span."+a).remove();e.append('<iframe allowfullscreen="1" webkitallowfullscreen="1" src="'+t+a+o+'" class="'+a+' video" frameBorder="0" style="display:none;height:275px;width:550px;"></iframe>')}function clicked(a,b,x,c){a.on("click",function(d){d.preventDefault();$("."+x).fadeToggle()});$("."+x).on("click",function(){frame(a,b,x,c)});a.dblclick(function(c){c.preventDefault();window.open("https://youtu.be/"+x)})}if(m.youtube){$(".normalTextSmall a").each(function(){function image(a,l){a.append('<div style="display:none" class="ThumbnailVideos '+l+'"><img src="http://i.ytimg.com/vi/'+l+'/hqdefault.jpg" class="VideoImg"><span style="display:none;" class="'+l+' play"></span></div>')}var link = $(this).text().match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([\w\-]{10,12})(?:&feature=related)?(?:[\w\-]{0})?/g);if(link){var urlID = GetFunc.getId(link[0]),n = "https://www.youtube.com/embed/",c = urlID.replace(/watch\?v=/g,""),time = "?version=3&start="+$(this).text().match(/(\?t=(\w+))/g);image($(this),c);clicked($(this),n,c,time.replace(/\?t=/g,""))}})}});
+//Storage.Get("youtube",function(m){function clicked(a,b){a.on("click",function(d){d.preventDefault();$("."+b).fadeToggle();});a.dblclick(function(c){c.preventDefault();window.open("https://youtu.be/"+b);});}if(m.youtube){$(".normalTextSmall a").each(function(){function frame(e,t,a,o){e.append('<iframe allowfullscreen="1" webkitallowfullscreen="1" src="'+t+a+o+'" class="'+a+' video" frameBorder="0" style="display:none;height:275px;width:550px;"></iframe>');}var link=$(this).text().match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([\w\-]{10,12})(?:&feature=related)?(?:[\w\-]{0})?/g);if(link){var urlID=GetFunc.getId(link[0]),n="https://www.youtube.com/embed/",c=urlID.replace(/watch\?v=/g,""),time="?version=3&start="+$(this).text().match(/(\?t=(\w+))/g);clicked($(this),c);frame($(this),n,c,time.replace(/\?t=/g,""));}});}});
 //Archive link
 Storage.Get("archive",function(v){if(v.archive==true){$("#forum-nav").append('<a id="EnhancerV2Archive"class="menuTextLink"> Archive this page?</a>');var location=window.location.href;$("#EnhancerV2Archive").on("click",function(e){e.preventDefault();if(confirm("Archive this page?")){window.open("https://archive.is/?run=1&url="+encodeURIComponent(location));}});}});
 //Forum link shortener
 Storage.Get("forum",function(v){if(v.forum==true){$(".normalTextSmall a").each(function(){var forumlink=$(this).text().match(/.+ShowPost\.aspx\?Postid=(\d+)/gi);if(forumlink!=undefined){GetFunc.Forum($(this),$(this).prop('href'));}});}});
 //Decal
-Storage.Get("decal",function(v){if(v.decal==true){$(".normalTextSmall a").each(function(){var decal=$(this).prop('href').match(/(item\.aspx|item)\?id=(\d+)|(item\.aspx.+\&id=)(\d+)/gi);if(decal!=undefined){var decal2=$(decal).get(0),decal3=decal2.substr(decal2.lastIndexOf("=")+1);GetFunc.Decal($(this),decal3);}});}});
+Storage.Get("decal",function(v){if(v.decal==true){$(".normalTextSmall a").each(function(){var decal=$(this).prop('href').match(/(item\.aspx|item)\?id=(\d+)|(item\.aspx.+\&id=)(\d+)|\/library\/(\d+)/gi);if(decal!=undefined){var decal2=$(decal).get(0),decal3=decal2.substr(decal2.lastIndexOf("=")+1);GetFunc.Decal($(this),decal3);}});}});
 //Profile
-Storage.Get("profile",function(v){if(v.profile==true){$(".normalTextSmall  a").each(function(){var user=$(this).text().match(/.+user.aspx\?id=(\d+)/gi);if(user!=undefined){GetFunc.OldProfile($(this),user);}else{}var user2=$(this).text().match(/.+users\/(\d+)/gi);if(user2!=undefined){GetFunc.Profile($(this),user2);}else{}});}});
+Storage.Get("profile",function(v){if(v.profile==true){$(".normalTextSmall  a").each(function(){var user=$(this).text().replace(/.*?:/g, "").match(/.+user.aspx\?id=(\d+)/gi);if(user!=undefined){GetFunc.OldProfile($(this),user);}else{}var user2=$(this).text().replace(/.*?:/g, "").match(/.+users\/(\d+)/gi);if(user2!=undefined){GetFunc.Profile($(this),user2);}else{}});}});
 //Games
 Storage.Get("games",function(v){if(v.games==true){$(".normalTextSmall a").each(function(){var game=$(this).text().match(/.+\/games\/(\d+)/gi);if(game!=undefined){var decal2=$(game).get(0),decal3=GetFunc.getId(decal2);GetFunc.Game($(this),decal3);}});}});
 //Safe Link Protection

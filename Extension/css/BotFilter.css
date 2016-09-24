@@ -1,0 +1,16 @@
+.forum-post .forum-content-background .normalTextSmall  {
+  display: block !important;
+  overflow-y: auto !important;
+  max-height:1000px  !important;
+}
+
+/*
+
+.forum-post .forum-content-background .normalTextSmall  {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 20;
+    -webkit-box-orient: vertical;  
+
+}
+*/
